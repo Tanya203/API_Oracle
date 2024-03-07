@@ -14,7 +14,7 @@ namespace API.Services
 
         public async Task<List<object>> GetAllContractType()
         {
-            var shiftType = await _modelContext.ContractTypes.ToListAsync();
+            var shiftType = await _modelContext.ContractTypes.ToListAsync();           
 
             return shiftType.Select(s => new
             {
@@ -22,6 +22,7 @@ namespace API.Services
                 s.TkmId,
                 s.ContractTypeName,
             }).Cast<object>().ToList();
+            
         }
     }
 }

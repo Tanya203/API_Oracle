@@ -14,7 +14,7 @@ namespace test_api.Services
 
         public async Task<List<object>> GetAllBenefit()
         {
-            var benefit = await _modelContext.Benefits. ToListAsync();
+            var benefit = await _modelContext.Benefits.ToListAsync();
 
             return benefit.Select(s => new
             {
