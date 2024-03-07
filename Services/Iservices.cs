@@ -1,4 +1,6 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using API.Models;
+using API.Services;
+using System.Reflection.Metadata.Ecma335;
 
 namespace test_api.Services
 {
@@ -8,6 +10,7 @@ namespace test_api.Services
         {
             services.AddScoped<ShiftTypeServices>();
             services.AddScoped<BenefitServices>();
+            services.AddScoped<ContractTypeServices>();
             return services;
         }
     }
