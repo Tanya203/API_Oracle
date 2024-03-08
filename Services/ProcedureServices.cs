@@ -22,8 +22,6 @@ namespace API.Services
                     command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = month;
 
                     await command.ExecuteNonQueryAsync();
-
-                    Console.WriteLine("Success");
                 }
             }
         }
