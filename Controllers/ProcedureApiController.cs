@@ -15,9 +15,8 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AutoSchedule()
+        public async Task<IActionResult> AutoSchedule(string month)
         {
-            var month = "06/2024";
             await _procedureServices.AutoSchedule(month);
             return Ok("Success");
         }
