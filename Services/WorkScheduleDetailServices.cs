@@ -20,11 +20,8 @@ namespace API.Services
             {
                 s.WsId,
                 s.StaffId,
-                s.ShiftId,
-                s.StId,
-                s.CheckIn,
-                s.CheckOut,
                 s.DateOff,
+                s.Note,
             }).Cast<object>().ToList();
         }
     }

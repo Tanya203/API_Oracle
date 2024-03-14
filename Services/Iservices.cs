@@ -20,6 +20,7 @@ namespace test_api.Services
             services.AddScoped<WorkScheduleServices>();
             services.AddScoped<WorkScheduleDetailServices>();
             services.AddScoped<ProcedureServices>();
+            services.AddScoped<TimeKeepingServices>();
             return services;
         }
     }

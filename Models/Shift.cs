@@ -13,5 +13,5 @@ public partial class Shift
 
     public TimeSpan? EndTime { get; set; }
 
-    public virtual ICollection<WorkScheduleDetail> WorkScheduleDetails { get; set; } = new List<WorkScheduleDetail>();
+    public virtual ICollection<TimeKeeping> TimeKeepings { get; set; } = new List<TimeKeeping>();
 }
