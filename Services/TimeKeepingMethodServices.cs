@@ -19,7 +19,7 @@ namespace API.Services
             return timeKeepingMethods.Select(s => new
             {
                 s.TkmId,
-                s.TimeKeepingMothodName,
+                s.TimeKeepingMethodName,
             }).Cast<object>().ToList();
         }
     }

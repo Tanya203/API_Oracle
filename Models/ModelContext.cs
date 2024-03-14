@@ -31,6 +31,8 @@ public partial class ModelContext : DbContext
 
     public virtual DbSet<Staff> Staff { get; set; }
 
+    public virtual DbSet<TimeKeeping> TimeKeepings { get; set; }
+
     public virtual DbSet<TimeKeepingMethod> TimeKeepingMethods { get; set; }
 
     public virtual DbSet<WorkSchedule> WorkSchedules { get; set; }
@@ -111,7 +113,7 @@ public partial class ModelContext : DbContext
                 .ValueGeneratedOnAdd()
                 .HasColumnName("CT_ID");
             entity.Property(e => e.ContractTypeName)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("CONTRACT_TYPE_NAME");
             entity.Property(e => e.TkmId)
@@ -227,7 +229,11 @@ public partial class ModelContext : DbContext
 
             entity.HasIndex(e => e.Account, "UK_ACCOUNT").IsUnique();
 
+            entity.HasIndex(e => e.Email, "UK_EMAIL").IsUnique();
+
             entity.HasIndex(e => e.Id, "UK_ID").IsUnique();
+
+            entity.HasIndex(e => e.Phone, "UK_PHONE").IsUnique();
 
             entity.Property(e => e.StaffId)
                 .HasMaxLength(20)
@@ -253,7 +259,7 @@ public partial class ModelContext : DbContext
                 .HasColumnType("DATE")
                 .HasColumnName("DATE_OF_BRITH");
             entity.Property(e => e.DayOff)
-                .HasColumnType("NUMBER")
+                .HasColumnType("NUMBER(38)")
                 .HasColumnName("DAY_OFF");
             entity.Property(e => e.District)
                 .HasMaxLength(50)
@@ -283,7 +289,7 @@ public partial class ModelContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("HOUSE_NUMBER");
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(12)
                 .IsUnicode(false)
                 .HasColumnName("ID");
             entity.Property(e => e.LastName)
@@ -341,23 +347,65 @@ public partial class ModelContext : DbContext
                 .HasConstraintName("FK_PS_ID");
         });
 
+        modelBuilder.Entity<TimeKeeping>(entity =>
+        {
+            entity.HasKey(e => new { e.WsId, e.StaffId, e.ShiftId }).HasName("TIME_KEEPING_PK");
+
+            entity.ToTable("TIME_KEEPING");
+
+            entity.Property(e => e.WsId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("WS_ID");
+            entity.Property(e => e.StaffId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STAFF_ID");
+            entity.Property(e => e.ShiftId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("SHIFT_ID");
+            entity.Property(e => e.CheckIn)
+                .HasColumnType("INTERVAL DAY(2) TO SECOND(6)")
+                .HasColumnName("CHECK_IN");
+            entity.Property(e => e.CheckOut)
+                .HasColumnType("INTERVAL DAY(2) TO SECOND(6)")
+                .HasColumnName("CHECK_OUT");
+            entity.Property(e => e.StId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("ST_ID");
+
+            entity.HasOne(d => d.Shift).WithMany(p => p.TimeKeepings)
+                .HasForeignKey(d => d.ShiftId)
+                .HasConstraintName("FK_SHIFT_ID");
+
+            entity.HasOne(d => d.St).WithMany(p => p.TimeKeepings)
+                .HasForeignKey(d => d.StId)
+                .HasConstraintName("FK_ST_ID");
+
+            entity.HasOne(d => d.WorkScheduleDetail).WithMany(p => p.TimeKeepings)
+                .HasForeignKey(d => new { d.WsId, d.StaffId })
+                .HasConstraintName("FK_WS_ID_STAFF_ID");
+        });
+
         modelBuilder.Entity<TimeKeepingMethod>(entity =>
         {
             entity.HasKey(e => e.TkmId).HasName("TIME_KEEPING_METHOD_PK");
 
             entity.ToTable("TIME_KEEPING_METHOD");
 
-            entity.HasIndex(e => e.TimeKeepingMothodName, "UK_TIME_KEEPING_METHOD_NAME").IsUnique();
+            entity.HasIndex(e => e.TimeKeepingMethodName, "UK_TIME_KEEPING_METHOD_NAME").IsUnique();
 
             entity.Property(e => e.TkmId)
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("TKM_ID");
-            entity.Property(e => e.TimeKeepingMothodName)
-                .HasMaxLength(20)
+            entity.Property(e => e.TimeKeepingMethodName)
+                .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("TIME_KEEPING_MOTHOD_NAME");
+                .HasColumnName("TIME_KEEPING_METHOD_NAME");
         });
 
         modelBuilder.Entity<WorkSchedule>(entity =>
@@ -381,43 +429,29 @@ public partial class ModelContext : DbContext
 
         modelBuilder.Entity<WorkScheduleDetail>(entity =>
         {
-            entity.HasKey(e => new { e.WsId, e.StaffId, e.ShiftId, e.StId }).HasName("WORK_SCHEDULE_DETAIL_PK");
+            entity.HasKey(e => new { e.WsId, e.StaffId }).HasName("WORK_SCHEDULE_DETAIL_PK");
 
             entity.ToTable("WORK_SCHEDULE_DETAIL");
 
             entity.Property(e => e.WsId)
                 .HasMaxLength(20)
                 .IsUnicode(false)
+                .ValueGeneratedOnAdd()
                 .HasColumnName("WS_ID");
             entity.Property(e => e.StaffId)
                 .HasMaxLength(20)
                 .IsUnicode(false)
+                .ValueGeneratedOnAdd()
                 .HasColumnName("STAFF_ID");
-            entity.Property(e => e.ShiftId)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("SHIFT_ID");
-            entity.Property(e => e.StId)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("ST_ID");
-            entity.Property(e => e.CheckIn)
-                .HasPrecision(6)
-                .HasColumnName("CHECK_IN");
-            entity.Property(e => e.CheckOut)
-                .HasPrecision(6)
-                .HasColumnName("CHECK_OUT");
             entity.Property(e => e.DateOff)
                 .HasPrecision(1)
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("0")
                 .HasColumnName("DATE_OFF");
-
-            entity.HasOne(d => d.Shift).WithMany(p => p.WorkScheduleDetails)
-                .HasForeignKey(d => d.ShiftId)
-                .HasConstraintName("FK_SHIFT_ID");
-
-            entity.HasOne(d => d.St).WithMany(p => p.WorkScheduleDetails)
-                .HasForeignKey(d => d.StId)
-                .HasConstraintName("WORK_SCHEDULE_DETAIL_FK2");
+            entity.Property(e => e.Note)
+                .HasMaxLength(1000)
+                .IsUnicode(false)
+                .HasColumnName("NOTE");
 
             entity.HasOne(d => d.Staff).WithMany(p => p.WorkScheduleDetails)
                 .HasForeignKey(d => d.StaffId)
