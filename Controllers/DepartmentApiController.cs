@@ -15,7 +15,7 @@ namespace API.Controllers
             _departmentServices = departmentServices;
         }
 
-        [HttpGet]
+        [HttpGet("/GetAllDepartment")]
         public async Task<IActionResult> GetAllDepartment()
         {
             var result = await _departmentServices.GetAllDepartment();

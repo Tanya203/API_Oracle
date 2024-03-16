@@ -15,7 +15,7 @@ namespace API.Controllers
             _shiftServices = shiftServices;
         }
 
-        [HttpGet]
+        [HttpGet("/GetAllShift")]
         public async Task<IActionResult> GetAllShift()
         {
             var result = await _shiftServices.GetAllShift();

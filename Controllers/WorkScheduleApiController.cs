@@ -14,11 +14,12 @@ namespace API.Controllers
             _workScheduleServices = workScheduleServices;
         }
 
-        [HttpGet]
+        [HttpGet("/GetAllWorkSchedule")]
         public async Task<IActionResult> GetAllWorkSchedule()
         {
             var result = await _workScheduleServices.GetAllWorkSchedule();
             return Ok(result);
         }
+        
     }
 }

@@ -15,7 +15,7 @@ namespace API.Controllers
             _benefitDeatailServices = benefitDeatailServices;
         }
 
-        [HttpGet]
+        [HttpGet("/GetAllBenefitDetail")]
         public async Task<IActionResult> GetAllBenefitService()
         {
             var result = await _benefitDeatailServices.GetAllBenefitDetail();

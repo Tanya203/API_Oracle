@@ -15,10 +15,16 @@ namespace API.Controllers
             _staffServices = staffServices;
         }
 
-        [HttpGet]
+        [HttpGet("/GetAllStaff")]
         public async Task<IActionResult> GetAllStaff()
         {
             var result = await _staffServices.GetAllStaff();
+            return Ok(result);
+        }
+        [HttpGet("/GetAllStaffInfo")]
+        public async Task<IActionResult> GetAllStaffInfo()
+        {
+            var result = await _staffServices.GetAllStaffInfo();
             return Ok(result);
         }
     }

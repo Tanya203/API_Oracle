@@ -14,10 +14,16 @@ namespace test_api.Controllers
             _benefitServices = benefitServices;
         }
 
-        [HttpGet]
+        [HttpGet("/GetAllBenefit")]
         public async Task<IActionResult> GetAllBenefit()
         {
             var result = await _benefitServices.GetAllBenefit();
+            return Ok(result);
+        }
+        [HttpGet("/CountBenefit")]
+        public async Task<IActionResult> CountBenefit()
+        {
+            var result = await _benefitServices.CountBenefit();
             return Ok(result);
         }
     }

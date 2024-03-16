@@ -21,7 +21,20 @@ namespace API.Services
                 s.WsId,
                 s.StaffId,
                 s.ShiftId,
-                s.StId,
+                s.CheckIn,
+                s.CheckOut,
+            }).Cast<object>().ToList();
+        }
+        public async Task<List<object>> GetStaffTimeKeeping()
+        {
+            var timeKeeping = await _modelContext.StaffTimeKeepings.ToListAsync();
+
+            return timeKeeping.Select(s => new
+            {
+                s.WsId,
+                s.WorkDate,
+                s.StaffId,
+                s.ShiftName,
                 s.CheckIn,
                 s.CheckOut,
             }).Cast<object>().ToList();

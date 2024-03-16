@@ -11,5 +11,5 @@ public partial class ShiftType
 
     public decimal? SalaryCoefficient { get; set; }
 
-    public virtual ICollection<TimeKeeping> TimeKeepings { get; set; } = new List<TimeKeeping>();
+    public virtual ICollection<Shift> Shifts { get; set; } = new List<Shift>();
 }

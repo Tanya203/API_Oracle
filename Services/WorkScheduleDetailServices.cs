@@ -24,5 +24,16 @@ namespace API.Services
                 s.Note,
             }).Cast<object>().ToList();
         }
+        public async Task<List<object>> GetDayOffUsed()
+        {
+            var workScheduleDetail = await _modelContext.DayOffUseds.ToListAsync();
+
+            return workScheduleDetail.Select(s => new
+            {
+                s.WsId,
+                s.WorkDate,
+                s.StaffId,
+            }).Cast<object>().ToList();
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace API.Controllers
             _contractTypeServices = contractTypeServices;
         }
 
-        [HttpGet]
+        [HttpGet("/GetAllContractType")]
         public async Task<IActionResult> GetAllContractTypes()
         {
             var result = await _contractTypeServices.GetAllContractType();

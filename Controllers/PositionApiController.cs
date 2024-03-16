@@ -15,7 +15,7 @@ namespace API.Controllers
             _positionServices = positionServices;
         }
 
-        [HttpGet]
+        [HttpGet("/GetAllPosition")]
         public async Task<IActionResult> GetAllPosition()
         {
             var result = await _positionServices.GetAllPosition();
