@@ -23,5 +23,18 @@ namespace test_api.Services
                 s.Amount
             }).Cast<object>().ToList();
         }
+        public async Task<List<object>> CountBenefit()
+        {
+            var benefit = await _modelContext.CountBenefits.ToListAsync();
+
+            return benefit.Select(s => new
+            {
+                s.BnId,
+                s.BenefitName,
+                s.Amount,
+                s.StaffQuantity,
+                s.Totalamount,
+            }).Cast<object>().ToList();
+        }
     }
 }

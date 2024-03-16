@@ -28,6 +28,23 @@ namespace API.Services
                 }
             }
         }
+        public async Task TimeKeeping(string staffID)
+        {
+            using (OracleConnection connection = new OracleConnection("Data Source = localhost:1521 / orcl; User Id = CUOIKY; Password = 12345; Validate Connection = true; "))
+            {
+                await connection.OpenAsync();
+
+                using (OracleCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "TIME_KEEPING_CHECK";
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = staffID;
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
         public async Task<List<object>> MonthlySalaryStatistics(string month)
         {
             List<object> salaryResults = new List<object>();
@@ -69,7 +86,8 @@ namespace API.Services
                             MonthlySalaryStatisticsViewModels salary = new MonthlySalaryStatisticsViewModels();
                             salary.StaffId = reader.GetString(0);
                             salary.TotalHour = reader.GetDecimal(1);
-                            salary.Salary = reader.GetDecimal(2);
+                            salary.TotalBenefit = reader.GetDecimal(2);
+                            salary.Salary = reader.GetDecimal(3);
                             salaryResults.Add(salary);
                         }
                         reader.Close();

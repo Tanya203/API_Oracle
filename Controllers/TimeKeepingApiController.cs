@@ -15,11 +15,18 @@ namespace API.Controllers
             _timeKeepingServices = timeKeepingServices;
         }
 
-        [HttpGet]
+        [HttpGet("/GetAllTimeKeeping")]
         public async Task<IActionResult> GetAllTimeKeeping()
         {
             var result = await _timeKeepingServices.GetAllTimeKeeping();
             return Ok(result);
         }
+        [HttpGet("/GetStaffTimeKeeping")]
+        public async Task<IActionResult> GetStaffTimeKeeping()
+        {
+            var result = await _timeKeepingServices.GetStaffTimeKeeping();
+            return Ok(result);
+        }
     }
 }
+

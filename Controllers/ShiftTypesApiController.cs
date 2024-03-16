@@ -14,7 +14,7 @@ namespace test_api.Controllers
             _shiftTypeServices = shiftTypeServices;
         }
 
-        [HttpGet]
+        [HttpGet("/GetAllShiftType")]
         public async Task<IActionResult> GetAllShiftType() 
         {
             var result = await _shiftTypeServices.GetAllShiftType();
