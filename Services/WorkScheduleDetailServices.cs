@@ -35,5 +35,21 @@ namespace API.Services
                 s.StaffId,
             }).Cast<object>().ToList();
         }
+        public async Task<List<object>> GetAllStafWorlScheduleDetail()
+        {
+            var workScheduleDetail = await _modelContext.StaffWorkScheduleDetails.ToListAsync();
+
+            return workScheduleDetail.Select(s => new
+            {
+                s.WsId,
+                s.WorkDate,
+                s.StaffId,
+                s.FullName,
+                s.PositionName,
+                s.DepartmentName,
+                s.DateOff,
+                s.DayOff
+            }).Cast<object>().ToList();
+        }
     }
 }

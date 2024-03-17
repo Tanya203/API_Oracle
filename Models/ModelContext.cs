@@ -39,6 +39,8 @@ public partial class ModelContext : DbContext
 
     public virtual DbSet<StaffTimeKeeping> StaffTimeKeepings { get; set; }
 
+    public virtual DbSet<StaffWorkScheduleDetail> StaffWorkScheduleDetails { get; set; }
+
     public virtual DbSet<TimeKeeping> TimeKeepings { get; set; }
 
     public virtual DbSet<TimeKeepingMethod> TimeKeepingMethods { get; set; }
@@ -131,7 +133,7 @@ public partial class ModelContext : DbContext
 
             entity.HasOne(d => d.Tkm).WithMany(p => p.ContractTypes)
                 .HasForeignKey(d => d.TkmId)
-                .OnDelete(DeleteBehavior.SetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("CONTRACT_TYPE_FK1");
         });
 
@@ -256,6 +258,7 @@ public partial class ModelContext : DbContext
 
             entity.HasOne(d => d.St).WithMany(p => p.Shifts)
                 .HasForeignKey(d => d.StId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_ST_ID");
         });
 
@@ -305,6 +308,7 @@ public partial class ModelContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("ACCOUNT");
             entity.Property(e => e.BasicSalary)
+                .HasDefaultValueSql("0 ")
                 .HasColumnType("NUMBER")
                 .HasColumnName("BASIC_SALARY");
             entity.Property(e => e.ContractDuration)
@@ -334,6 +338,7 @@ public partial class ModelContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("EMAIL");
             entity.Property(e => e.EntryDate)
+                .ValueGeneratedOnAdd()
                 .HasColumnType("DATE")
                 .HasColumnName("ENTRY_DATE");
             entity.Property(e => e.FirstName)
@@ -398,12 +403,12 @@ public partial class ModelContext : DbContext
 
             entity.HasOne(d => d.Ct).WithMany(p => p.Staff)
                 .HasForeignKey(d => d.CtId)
-                .OnDelete(DeleteBehavior.SetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_CT_ID");
 
             entity.HasOne(d => d.Ps).WithMany(p => p.Staff)
                 .HasForeignKey(d => d.PsId)
-                .OnDelete(DeleteBehavior.SetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_PS_ID");
         });
 
@@ -490,10 +495,59 @@ public partial class ModelContext : DbContext
             entity.Property(e => e.CheckOut)
                 .HasColumnType("INTERVAL DAY(2) TO SECOND(6)")
                 .HasColumnName("CHECK_OUT");
+            entity.Property(e => e.DepartmentName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("DEPARTMENT_NAME");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(152)
+                .IsUnicode(false)
+                .HasColumnName("FULL_NAME");
+            entity.Property(e => e.PositionName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("POSITION_NAME");
             entity.Property(e => e.ShiftName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("SHIFT_NAME");
+            entity.Property(e => e.StaffId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STAFF_ID");
+            entity.Property(e => e.WorkDate)
+                .HasColumnType("DATE")
+                .HasColumnName("WORK_DATE");
+            entity.Property(e => e.WsId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("WS_ID");
+        });
+
+        modelBuilder.Entity<StaffWorkScheduleDetail>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("STAFF_WORK_SCHEDULE_DETAIL");
+
+            entity.Property(e => e.DateOff)
+                .HasPrecision(1)
+                .HasColumnName("DATE_OFF");
+            entity.Property(e => e.DayOff)
+                .HasColumnType("NUMBER(38)")
+                .HasColumnName("DAY_OFF");
+            entity.Property(e => e.DepartmentName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("DEPARTMENT_NAME");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(152)
+                .IsUnicode(false)
+                .HasColumnName("FULL_NAME");
+            entity.Property(e => e.PositionName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("POSITION_NAME");
             entity.Property(e => e.StaffId)
                 .HasMaxLength(20)
                 .IsUnicode(false)

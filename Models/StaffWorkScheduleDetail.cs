@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.Models;
 
-public partial class StaffTimeKeeping
+public partial class StaffWorkScheduleDetail
 {
     public string WsId { get; set; } = null!;
 
@@ -17,9 +17,7 @@ public partial class StaffTimeKeeping
 
     public string? DepartmentName { get; set; }
 
-    public string? ShiftName { get; set; }
+    public bool? DateOff { get; set; }
 
-    public TimeSpan? CheckIn { get; set; }
-
-    public TimeSpan? CheckOut { get; set; }
+    public decimal? DayOff { get; set; }
 }
