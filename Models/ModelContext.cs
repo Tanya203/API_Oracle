@@ -168,6 +168,18 @@ public partial class ModelContext : DbContext
                 .HasNoKey()
                 .ToView("DAY_OFF_USED");
 
+            entity.Property(e => e.DepartmentName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("DEPARTMENT_NAME");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(152)
+                .IsUnicode(false)
+                .HasColumnName("FULL_NAME");
+            entity.Property(e => e.PositionName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("POSITION_NAME");
             entity.Property(e => e.StaffId)
                 .HasMaxLength(20)
                 .IsUnicode(false)
