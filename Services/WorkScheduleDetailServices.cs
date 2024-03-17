@@ -33,6 +33,9 @@ namespace API.Services
                 s.WsId,
                 s.WorkDate,
                 s.StaffId,
+                s.FullName,
+                s.PositionName,
+                s.DepartmentName
             }).Cast<object>().ToList();
         }
         public async Task<List<object>> GetAllStafWorlScheduleDetail()
