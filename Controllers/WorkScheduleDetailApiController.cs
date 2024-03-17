@@ -26,5 +26,11 @@ namespace API.Controllers
             var result = await _workScheduleDetailServices.GetDayOffUsed();
             return Ok(result);
         }
+        [HttpGet("/GetAllStaffWorkScheduleDetail")]
+        public async Task<IActionResult> GetAllStaffWorkScheduleDetail()
+        {
+            var result = await _workScheduleDetailServices.GetAllStafWorlScheduleDetail();
+            return Ok(result);
+        }
     }
 }
