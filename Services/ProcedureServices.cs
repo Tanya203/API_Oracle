@@ -19,7 +19,7 @@ namespace API.Services
 
                 using (OracleCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "ADD_TIME_TABLE_MONTH";
+                    command.CommandText = "AUTO_SCHEDULE";
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = month;
