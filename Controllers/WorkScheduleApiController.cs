@@ -1,4 +1,5 @@
-﻿using API.Services;
+﻿using API.Models;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -20,6 +21,13 @@ namespace API.Controllers
             var result = await _workScheduleServices.GetAllWorkSchedule();
             return Ok(result);
         }
-        
+
+        [HttpPost("/AddWorkSchedule")]
+        public async Task<IActionResult> CreateWorkSchedule(WorkSchedule workSchedule)
+        {
+            var result = await _workScheduleServices.CreateWorkSchedule(workSchedule);
+            return Ok(result);
+        }
+
     }
 }

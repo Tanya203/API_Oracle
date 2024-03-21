@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
@@ -53,6 +54,32 @@ namespace API.Services
                 s.DateOff,
                 s.DayOff
             }).Cast<object>().ToList();
+        }
+        public async Task<IActionResult> CreateWorkScheduleDetail(WorkScheduleDetail workScheduleDetail)
+        {
+            try
+            {
+                _modelContext.WorkScheduleDetails.Add(workScheduleDetail);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> UpdateWorkScheduleDetail(WorkScheduleDetail workScheduleDetail)
+        {
+            try
+            {
+                _modelContext.WorkScheduleDetails.Update(workScheduleDetail);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
