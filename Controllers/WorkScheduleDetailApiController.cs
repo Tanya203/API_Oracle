@@ -1,4 +1,5 @@
-﻿using API.Services;
+﻿using API.Models;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -30,6 +31,20 @@ namespace API.Controllers
         public async Task<IActionResult> GetAllStaffWorkScheduleDetail()
         {
             var result = await _workScheduleDetailServices.GetAllStafWorlScheduleDetail();
+            return Ok(result);
+        }
+
+        [HttpPost("/AddWorkScheduleDetail")]
+        public async Task<IActionResult> CreateWorkScheduleDetail(WorkScheduleDetail workScheduleDetail)
+        {
+            var result = await _workScheduleDetailServices.CreateWorkScheduleDetail(workScheduleDetail);
+            return Ok(result);
+        }
+
+        [HttpPut("/UpdateWorkScheduleDetail")]
+        public async Task<IActionResult> UpdateWorkScheduleDetail(WorkScheduleDetail workScheduleDetail)
+        {
+            var result = await _workScheduleDetailServices.UpdateWorkScheduleDetail(workScheduleDetail);
             return Ok(result);
         }
     }

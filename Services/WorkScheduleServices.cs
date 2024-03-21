@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
@@ -21,6 +22,19 @@ namespace API.Services
                 s.WsId,
                 s.WorkDate,
             }).Cast<object>().ToList();
+        }
+        public async Task<IActionResult> CreateWorkSchedule(WorkSchedule workSchedule)
+        {
+            try
+            {
+                _modelContext.WorkSchedules.Add(workSchedule);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

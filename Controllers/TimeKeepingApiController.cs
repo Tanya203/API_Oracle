@@ -35,13 +35,6 @@ namespace API.Controllers
             var result = await _timeKeepingServices.CreateTimeKeeping(timeKeeping);
             return Ok(result);
         }
-
-        [HttpDelete("/DeleteTimeKeeping")]
-        public async Task<IActionResult> DeleteTimeKeeing(string wsID, string staffID, string shiftID)
-        {
-            var result = await _timeKeepingServices.DeleteTimeKeeping(wsID, staffID, shiftID);
-            return Ok(result);
-        }
     }
 }
 

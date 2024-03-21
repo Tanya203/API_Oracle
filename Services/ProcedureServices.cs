@@ -45,6 +45,60 @@ namespace API.Services
                 }
             }
         }
+        public async Task DeleteWorkSchedule(string wsID)
+        {
+            using (OracleConnection connection = new OracleConnection("Data Source = localhost:1521 / orcl; User Id = CUOIKY; Password = 12345; Validate Connection = true; "))
+            {
+                await connection.OpenAsync();
+
+                using (OracleCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "CHECK_ON_DELETE_WORK_SCHEDULE";
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = wsID;
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+        public async Task DeleteWorkScheduleDetail(string wsID, string staffID)
+        {
+            using (OracleConnection connection = new OracleConnection("Data Source = localhost:1521 / orcl; User Id = CUOIKY; Password = 12345; Validate Connection = true; "))
+            {
+                await connection.OpenAsync();
+
+                using (OracleCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "CHECK_ON_DELETE_WORK_SCHEDULE_DETAIL";
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = wsID;
+                    command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = staffID;
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+        public async Task DeleteTimeKeeping(string wsID, string staffID, string shiftID)
+        {
+            using (OracleConnection connection = new OracleConnection("Data Source = localhost:1521 / orcl; User Id = CUOIKY; Password = 12345; Validate Connection = true; "))
+            {
+                await connection.OpenAsync();
+
+                using (OracleCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "CHECK_ON_DELETE_WORK_TIME_KEEPING";
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = wsID;
+                    command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = staffID;
+                    command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = shiftID;
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
         public async Task<List<object>> MonthlySalaryStatistics(string month)
         {
             List<object> salaryResults = new List<object>();

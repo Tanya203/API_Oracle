@@ -32,5 +32,26 @@ namespace API.Controllers
             await _procedureServices.TimeKeeping(staffID);
             return Ok("Success");
         }
+
+        [HttpDelete("/DeleteWorkSchedule")]
+        public async Task<IActionResult> DeleteWorkSchedule(string wsID)
+        {
+            await _procedureServices.DeleteWorkSchedule(wsID);
+            return Ok("Success");
+        }
+
+        [HttpDelete("/DeleteWorkScheduleDetail")]
+        public async Task<IActionResult> DeleteWorkScheduleDetail(string wsID, string staffID)
+        {
+            await _procedureServices.DeleteWorkScheduleDetail(wsID, staffID);
+            return Ok("Success");
+        }
+
+        [HttpDelete("/DeleteTimeKeeping")]
+        public async Task<IActionResult> DeleteTimeKeeping(string wsID, string staffID, string shiftID)
+        {
+            await _procedureServices.DeleteTimeKeeping(wsID, staffID, shiftID);
+            return Ok("Success");
+        }
     }
 }
