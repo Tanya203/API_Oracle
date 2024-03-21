@@ -11,7 +11,7 @@ public partial class BenefitDetail
 
     public string? Note { get; set; }
 
-    public virtual Benefit Bn { get; set; } = null!;
+    public virtual Benefit? Bn { get; set; } = null!;
 
-    public virtual Staff Staff { get; set; } = null!;
+    public virtual Staff? Staff { get; set; } = null!;
 }

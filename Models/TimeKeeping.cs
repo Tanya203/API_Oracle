@@ -15,7 +15,7 @@ public partial class TimeKeeping
 
     public TimeSpan? CheckOut { get; set; }
 
-    public virtual Shift Shift { get; set; } = null!;
+    public virtual Shift? Shift { get; set; } = null!;
 
-    public virtual WorkScheduleDetail WorkScheduleDetail { get; set; } = null!;
+    public virtual WorkScheduleDetail? WorkScheduleDetail { get; set; } = null!;
 }

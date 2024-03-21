@@ -1,11 +1,7 @@
 ﻿using API.Models;
-using API.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
 using System.Data;
-using System.Data.Common;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace API.Services
 {
@@ -76,6 +72,46 @@ namespace API.Services
                 s.DayOff,
                 s.BasicSalary
             }).Cast<object>().ToList();
+        }
+        public async Task<IActionResult> CreateStaff(Staff staff)
+        {
+            try
+            {
+                _modelContext.Staff.Add(staff);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> UpdateStaff(Staff staff)
+        {
+            try
+            {
+                _modelContext.Staff.Update(staff);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> DeleteStaff(string staffID)
+        {
+            try
+            {
+                Staff delete = _modelContext.Staff.FirstOrDefault(s => s.StaffId == staffID);
+                _modelContext.Staff.Remove(delete);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

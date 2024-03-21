@@ -1,4 +1,5 @@
-﻿using API.Services;
+﻿using API.Models;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -18,6 +19,26 @@ namespace API.Controllers
         public async Task<IActionResult> GetAllTimeKeepingMethod()
         {
             var result = await _timeKeepingMethodServices.GetAllTimeKeepingMethod();
+            return Ok(result);
+        }
+        [HttpPost("/AddTimeKeepingMethod")]
+        public async Task<IActionResult> CreateTimeKeepingMethod(TimeKeepingMethod timeKeepingMethod)
+        {
+            var result = await _timeKeepingMethodServices.CreateTimeKeepingMethod(timeKeepingMethod);
+            return Ok(result);
+        }
+
+        [HttpPut("/UpdateTimeKeepingMethod")]
+        public async Task<IActionResult> UpdateTimeKeepingMethod(TimeKeepingMethod timeKeepingMethod)
+        {
+            var result = await _timeKeepingMethodServices.UpdateTimeKeepingMethod(timeKeepingMethod);
+            return Ok(result);
+        }
+
+        [HttpDelete("/DeleteTimeKeepingMethod")]
+        public async Task<IActionResult> DeleteTimeKeepingMethod(string tkmID)
+        {
+            var result = await _timeKeepingMethodServices.DeleteTimeKeepingMethod(tkmID);
             return Ok(result);
         }
     }

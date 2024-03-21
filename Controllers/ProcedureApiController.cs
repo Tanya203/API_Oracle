@@ -26,7 +26,7 @@ namespace API.Controllers
             var result = await _procedureServices.MonthlySalaryStatistics(month);
             return Ok(result);
         }
-        [HttpPost("/TimeKeeping")]
+        [HttpPut("/TimeKeeping")]
         public async Task<IActionResult> TimeKeeping(string staffID)
         {
             await _procedureServices.TimeKeeping(staffID);
