@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
@@ -23,6 +24,46 @@ namespace API.Services
                 s.BeginTime,
                 s.EndTime,
             }).Cast<object>().ToList();
+        }
+        public async Task<IActionResult> CreateShìt(Shift shift)
+        {
+            try
+            {
+                _modelContext.Shifts.Add(shift);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> UpdateShift(Shift shift)
+        {
+            try
+            {
+                _modelContext.Shifts.Update(shift);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> DeleteShift(string shiftID)
+        {
+            try
+            {
+                Shift delete = _modelContext.Shifts.FirstOrDefault(s => s.ShiftId == shiftID);
+                _modelContext.Shifts.Remove(delete);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
@@ -41,6 +42,33 @@ namespace API.Services
                 s.CheckIn,
                 s.CheckOut,
             }).Cast<object>().ToList();
+        }
+        public async Task<IActionResult> CreateTimeKeeping(TimeKeeping timeKeeping)
+        {
+            try
+            {
+                _modelContext.TimeKeepings.Add(timeKeeping);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> DeleteTimeKeeping(string wsID, string staffID, string shiftID)
+        {
+            try
+            {
+                TimeKeeping delete = _modelContext.TimeKeepings.FirstOrDefault(s => s.WsId == wsID && s.StaffId == staffID && s.ShiftId == shiftID);
+                _modelContext.TimeKeepings.Remove(delete);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

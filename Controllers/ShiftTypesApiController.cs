@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API.Models;
+using Microsoft.AspNetCore.Mvc;
 using test_api.Services;
 
 namespace test_api.Controllers
@@ -18,6 +19,24 @@ namespace test_api.Controllers
         public async Task<IActionResult> GetAllShiftType() 
         {
             var result = await _shiftTypeServices.GetAllShiftType();
+            return Ok(result);
+        }
+        [HttpPost("/AddShiftType")]
+        public async Task<IActionResult> CreateShiftType(ShiftType shiftType)
+        {
+            var result = await _shiftTypeServices.CreateShiftType(shiftType);
+            return Ok(result);
+        }
+        [HttpPut("/UpdateShiftType")]
+        public async Task<IActionResult> UpdateShiftType(ShiftType shiftType)
+        {
+            var result = await _shiftTypeServices.UpdateShiftType(shiftType);
+            return Ok(result);
+        }
+        [HttpDelete("/DeleteShiftType")]
+        public async Task<IActionResult> DeleteShiftType(string stID)
+        {
+            var result = await _shiftTypeServices.DeleteShiftType(stID);
             return Ok(result);
         }
     }

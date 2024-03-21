@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
@@ -21,8 +22,47 @@ namespace API.Services
                 s.CtId,
                 s.TkmId,
                 s.ContractTypeName,
-            }).Cast<object>().ToList();
-            
+            }).Cast<object>().ToList();            
+        }
+        public async Task<IActionResult> CreateContractType(ContractType contractType)
+        {
+            try
+            {
+                _modelContext.ContractTypes.Add(contractType);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> UpdateContractType(ContractType contractType)
+        {
+            try
+            {
+                _modelContext.ContractTypes.Update(contractType);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> DeleteContractType(string ctID)
+        {
+            try
+            {
+                ContractType delete = _modelContext.ContractTypes.FirstOrDefault(s => s.CtId == ctID);
+                _modelContext.ContractTypes.Remove(delete);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

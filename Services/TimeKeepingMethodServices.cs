@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
@@ -21,6 +22,46 @@ namespace API.Services
                 s.TkmId,
                 s.TimeKeepingMethodName,
             }).Cast<object>().ToList();
+        }
+        public async Task<IActionResult> CreateTimeKeepingMethod(TimeKeepingMethod timeKeepingMethod)
+        {
+            try
+            {
+                _modelContext.TimeKeepingMethods.Add(timeKeepingMethod);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> UpdateTimeKeepingMethod(TimeKeepingMethod timeKeepingMethod)
+        {
+            try
+            {
+                _modelContext.TimeKeepingMethods.Update(timeKeepingMethod);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> DeleteTimeKeepingMethod(string tkmID)
+        {
+            try
+            {
+                TimeKeepingMethod delete = _modelContext.TimeKeepingMethods.FirstOrDefault(s => s.TkmId == tkmID);
+                _modelContext.TimeKeepingMethods.Remove(delete);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

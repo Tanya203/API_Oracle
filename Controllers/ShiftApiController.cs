@@ -1,4 +1,5 @@
-﻿using API.Services;
+﻿using API.Models;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 using test_api.Services;
 
@@ -19,6 +20,24 @@ namespace API.Controllers
         public async Task<IActionResult> GetAllShift()
         {
             var result = await _shiftServices.GetAllShift();
+            return Ok(result);
+        }
+        [HttpPost("/AddShift")]
+        public async Task<IActionResult> CreateShift(Shift shift)
+        {
+            var result = await _shiftServices.CreateShìt(shift);
+            return Ok(result);
+        }
+        [HttpPut("/UpdateShift")]
+        public async Task<IActionResult> UpdateShift(Shift shift)
+        {
+            var result = await _shiftServices.UpdateShift(shift);
+            return Ok(result);
+        }
+        [HttpDelete("/DeleteShift")]
+        public async Task<IActionResult> DeleteShift(string shiftID)
+        {
+            var result = await _shiftServices.DeleteShift(shiftID);
             return Ok(result);
         }
     }

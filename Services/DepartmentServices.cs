@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
@@ -21,6 +22,46 @@ namespace API.Services
                 s.DpId,
                 s.DepartmentName,
             }).Cast<object>().ToList();
+        }
+        public async Task<IActionResult> CreateDepartment(Department department)
+        {
+            try
+            {
+                _modelContext.Departments.Add(department);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> UpdateDepartment(Department department)
+        {
+            try
+            {
+                _modelContext.Departments.Update(department);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+        public async Task<IActionResult> DeleteDepartment(string dpID)
+        {
+            try
+            {
+                Department delete = _modelContext.Departments.FirstOrDefault(s => s.DpId == dpID);
+                _modelContext.Departments.Remove(delete);
+                await _modelContext.SaveChangesAsync();
+                return new StatusCodeResult(StatusCodes.Status200OK);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
