@@ -1,6 +1,5 @@
 ﻿using API.Services;
 using Microsoft.AspNetCore.Mvc;
-using test_api.Services;
 
 namespace API.Controllers
 {

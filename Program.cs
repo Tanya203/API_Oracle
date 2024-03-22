@@ -1,6 +1,6 @@
 using API.Models;
 using Microsoft.EntityFrameworkCore;
-using test_api.Services;
+using API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

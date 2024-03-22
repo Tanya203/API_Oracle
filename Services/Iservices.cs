@@ -2,7 +2,7 @@
 using API.Services;
 using System.Reflection.Metadata.Ecma335;
 
-namespace test_api.Services
+namespace API.Services
 {
     public static class Iservices
     {
