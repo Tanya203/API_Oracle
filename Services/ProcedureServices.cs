@@ -1,10 +1,7 @@
 ﻿using API.ViewModels;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Data.Common;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API.Services
 {

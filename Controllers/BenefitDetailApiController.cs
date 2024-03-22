@@ -22,6 +22,21 @@ namespace API.Controllers
             var result = await _benefitDeatailServices.GetAllBenefitDetail();
             return Ok(result);
         }
+
+        [HttpGet("/GetStaffBenefitDetail")]
+        public async Task<IActionResult> GetStaffBenefitDetail()
+        {
+            var result = await _benefitDeatailServices.GetStaffBenefitDetail();
+            return Ok(result);
+        }
+
+        [HttpGet("/SearchStaffBenefitDetail")]
+        public async Task<IActionResult> SearchStaffBenefitDetail(string search)
+        {
+            var result = await _benefitDeatailServices.SearchStaffBenefitDetail(search);
+            return Ok(result);
+        }
+
         [HttpPost("/AddBenefitDetail")]
         public async Task<IActionResult> CreateBenefitDetail(BenefitDetail benefitDetail)
         {

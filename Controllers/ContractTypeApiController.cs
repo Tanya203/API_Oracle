@@ -22,6 +22,14 @@ namespace API.Controllers
             var result = await _contractTypeServices.GetAllContractType();
             return Ok(result);
         }
+
+        [HttpGet("/SearchContractType")]
+        public async Task<IActionResult> SearchContractTypes(string search)
+        {
+            var result = await _contractTypeServices.SearchContractType(search);
+            return Ok(result);
+        }
+
         [HttpPost("/AddContractType")]
         public async Task<IActionResult> CreateBenefit(ContractType contractType)
         {

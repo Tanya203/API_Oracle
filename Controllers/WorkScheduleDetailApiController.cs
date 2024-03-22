@@ -30,7 +30,14 @@ namespace API.Controllers
         [HttpGet("/GetAllStaffWorkScheduleDetail")]
         public async Task<IActionResult> GetAllStaffWorkScheduleDetail()
         {
-            var result = await _workScheduleDetailServices.GetAllStafWorlScheduleDetail();
+            var result = await _workScheduleDetailServices.GetAllStaffWorlScheduleDetail();
+            return Ok(result);
+        }
+
+        [HttpGet("/SearchStaffWorkScheduleDetail")]
+        public async Task<IActionResult> SearchStaffWorkScheduleDetail(string search)
+        {
+            var result = await _workScheduleDetailServices.SearchStaffWorlScheduleDetail(search);
             return Ok(result);
         }
 

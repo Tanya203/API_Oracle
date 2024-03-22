@@ -13,9 +13,9 @@ public partial class WorkScheduleDetail
 
     public string? Note { get; set; }
 
-    public virtual Staff? Staff { get; set; } = null!;
+    public virtual Staff Staff { get; set; } = null!;
 
-    public virtual ICollection<TimeKeeping>? TimeKeepings { get; set; } = new List<TimeKeeping>();
+    public virtual ICollection<TimeKeeping> TimeKeepings { get; set; } = new List<TimeKeeping>();
 
-    public virtual WorkSchedule? Ws { get; set; } = null!;
+    public virtual WorkSchedule Ws { get; set; } = null!;
 }

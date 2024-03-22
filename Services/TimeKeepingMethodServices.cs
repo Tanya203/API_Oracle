@@ -12,7 +12,6 @@ namespace API.Services
         {
             _modelContext = modelContext;
         }
-
         public async Task<List<object>> GetAllTimeKeepingMethod()
         {
             var timeKeepingMethods = await _modelContext.TimeKeepingMethods.ToListAsync();
@@ -22,6 +21,18 @@ namespace API.Services
                 s.TkmId,
                 s.TimeKeepingMethodName,
             }).Cast<object>().ToList();
+        }
+        public async Task<List<object>> SearchTimeKeepingMethod(string search)
+        {
+            search = search.ToLower();
+            var timeKeepingMethods = await _modelContext.TimeKeepingMethods.ToListAsync();
+
+            return timeKeepingMethods.Select(s => new
+            {
+                s.TkmId,
+                s.TimeKeepingMethodName,
+            }).Where(s => s.TkmId.ToLower().Contains(search) ||
+                     s.TimeKeepingMethodName != null && s.TimeKeepingMethodName.ToLower().Contains(search)).Cast<object>().ToList();
         }
         public async Task<IActionResult> CreateTimeKeepingMethod(TimeKeepingMethod timeKeepingMethod)
         {

@@ -21,12 +21,19 @@ namespace API.Controllers
         {
             var result = await _staffServices.GetAllStaff();
             return Ok(result);
-        }
+        }        
 
         [HttpGet("/GetAllStaffInfo")]
         public async Task<IActionResult> GetAllStaffInfo()
         {
             var result = await _staffServices.GetAllStaffInfo();
+            return Ok(result);
+        }
+
+        [HttpGet("/SearchStaffInfo")]
+        public async Task<IActionResult> SearchStaffInfo(string search)
+        {
+            var result = await _staffServices.SearchStaffInfo(search);
             return Ok(result);
         }
 

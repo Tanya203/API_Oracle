@@ -55,7 +55,6 @@ namespace API.Services
             return staff.Select(s => new
             {
                 s.StaffId,
-                s.Account,
                 s.PositionName,
                 s.DepartmentName,
                 s.ContractTypeName,
@@ -72,6 +71,46 @@ namespace API.Services
                 s.DayOff,
                 s.BasicSalary
             }).Cast<object>().ToList();
+        }
+        public async Task<List<object>> SearchStaffInfo(string search)
+        {
+            search = search.ToLower();
+            var staff = await _modelContext.StaffInfos.ToListAsync();
+
+            return staff.Select(s => new
+            {
+                s.StaffId,
+                s.PositionName,
+                s.DepartmentName,
+                s.ContractTypeName,
+                s.FullName,
+                s.DateOfBrith,
+                s.Address,
+                s.Gender,
+                s.Phone,
+                s.Email,
+                s.EducationLevel,
+                s.EntryDate,
+                s.ContractDuration,
+                s.Status,
+                s.DayOff,
+                s.BasicSalary
+            }).Where(s => s.StaffId.ToLower().Contains(search) ||
+                     s.PositionName.ToLower().Contains(search) ||
+                     s.DepartmentName.ToLower().Contains(search) ||
+                     s.ContractTypeName.ToLower().Contains(search) ||
+                     s.FullName.ToLower().Contains(search) ||
+                     s.DateOfBrith.ToString().Contains(search) ||
+                     s.Address.ToLower().Contains(search) ||
+                     s.Gender.ToLower().Contains(search) || 
+                     s.Phone.Contains(search) ||
+                     s.Email.ToLower().Contains(search) ||
+                     s.EducationLevel.ToLower().Contains(search) ||
+                     s.EntryDate.ToString().Contains(search) ||
+                     s.ContractDuration.ToString().Contains(search) ||
+                     s.Status.Contains(search) ||
+                     s.DayOff.ToString().Contains(search) ||
+                     s.BasicSalary.ToString().Contains(search)).Cast<object>().ToList();
         }
         public async Task<IActionResult> CreateStaff(Staff staff)
         {
