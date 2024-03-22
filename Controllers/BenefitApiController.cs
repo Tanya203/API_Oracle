@@ -24,12 +24,21 @@ namespace test_api.Controllers
             var result = await _benefitServices.GetAllBenefit();
             return Ok(result);
         }
+
         [HttpGet("/CountBenefit")]
         public async Task<IActionResult> CountBenefit()
         {
             var result = await _benefitServices.CountBenefit();
             return Ok(result);
         }
+
+        [HttpGet("/SearchCountBenefit")]
+        public async Task<IActionResult> SearchCountBenefit(string search)
+        {
+            var result = await _benefitServices.SearchCountBenefit(search);
+            return Ok(result);
+        }
+
         [HttpPost("/AddBenefit")]
         public async Task<IActionResult> CreateBenefit(Benefit benefit)
         {

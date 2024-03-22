@@ -21,6 +21,14 @@ namespace test_api.Controllers
             var result = await _shiftTypeServices.GetAllShiftType();
             return Ok(result);
         }
+
+        [HttpGet("/SearchShiftType")]
+        public async Task<IActionResult> SearchShiftType(string search)
+        {
+            var result = await _shiftTypeServices.SearchShiftType(search);
+            return Ok(result);
+        }
+
         [HttpPost("/AddShiftType")]
         public async Task<IActionResult> CreateShiftType(ShiftType shiftType)
         {

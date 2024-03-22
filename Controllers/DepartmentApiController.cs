@@ -22,6 +22,14 @@ namespace API.Controllers
             var result = await _departmentServices.GetAllDepartment();
             return Ok(result);
         }
+
+        [HttpGet("/SearchDepartment")]
+        public async Task<IActionResult> SearchDepartment(string search)
+        {
+            var result = await _departmentServices.SearchDepartment(search);
+            return Ok(result);
+        }
+
         [HttpPost("/AddDepartment")]
         public async Task<IActionResult> CreateDepartment(Department department)
         {

@@ -7,8 +7,6 @@ public partial class StaffInfo
 {
     public string StaffId { get; set; } = null!;
 
-    public string? Account { get; set; }
-
     public string? PositionName { get; set; }
 
     public string? DepartmentName { get; set; }

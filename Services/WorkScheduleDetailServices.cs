@@ -39,7 +39,7 @@ namespace API.Services
                 s.DepartmentName
             }).Cast<object>().ToList();
         }
-        public async Task<List<object>> GetAllStafWorlScheduleDetail()
+        public async Task<List<object>> GetAllStaffWorlScheduleDetail()
         {
             var workScheduleDetail = await _modelContext.StaffWorkScheduleDetails.ToListAsync();
 
@@ -54,6 +54,31 @@ namespace API.Services
                 s.DateOff,
                 s.DayOff
             }).Cast<object>().ToList();
+        }
+        public async Task<List<object>> SearchStaffWorlScheduleDetail(string search)
+        {
+            search = search.ToLower();
+            var workScheduleDetail = await _modelContext.StaffWorkScheduleDetails.ToListAsync();
+
+            return workScheduleDetail.Select(s => new
+            {
+                s.WsId,
+                s.WorkDate,
+                s.StaffId,
+                s.FullName,
+                s.PositionName,
+                s.DepartmentName,
+                s.DateOff,
+                s.DayOff
+            }).Where(s => s.WsId.ToLower().Contains(search) ||
+                     s.WorkDate.ToString().Contains(search) ||
+                     s.StaffId.ToLower().Contains(search) ||
+                     s.FullName.ToLower().Contains(search) ||
+                     s.PositionName.ToLower().Contains(search) ||
+                     s.DepartmentName.ToLower().Contains(search) ||
+                     s.DayOff.ToString().Contains(search) ||
+                     s.DateOff.ToString().Contains(search)).Cast<object>().ToList();
+
         }
         public async Task<IActionResult> CreateWorkScheduleDetail(WorkScheduleDetail workScheduleDetail)
         {

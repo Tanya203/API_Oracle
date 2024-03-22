@@ -21,6 +21,14 @@ namespace API.Controllers
             var result = await _timeKeepingMethodServices.GetAllTimeKeepingMethod();
             return Ok(result);
         }
+
+        [HttpGet("/SearchTimeKeepingMethod")]
+        public async Task<IActionResult> SearchTimeKeepingMethod(string search)
+        {
+            var result = await _timeKeepingMethodServices.SearchTimeKeepingMethod(search);
+            return Ok(result);
+        }
+
         [HttpPost("/AddTimeKeepingMethod")]
         public async Task<IActionResult> CreateTimeKeepingMethod(TimeKeepingMethod timeKeepingMethod)
         {

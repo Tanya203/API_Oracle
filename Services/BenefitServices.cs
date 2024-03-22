@@ -37,6 +37,25 @@ namespace test_api.Services
                 s.Totalamount,
             }).Cast<object>().ToList();
         }
+        public async Task<List<object>> SearchCountBenefit(string search)
+        {
+            search = search.ToLower();
+
+            var benefit = await _modelContext.CountBenefits.ToListAsync();
+
+            return benefit.Select(s => new
+            {
+                s.BnId,
+                s.BenefitName,
+                s.Amount,
+                s.StaffQuantity,
+                s.Totalamount,
+            }).Where(s => s.BnId.Contains(search) ||
+                    s.BenefitName.ToLower().Contains(search) ||
+                    s.Amount.ToString().Contains(search) ||
+                    s.StaffQuantity.ToString().Contains(search) ||
+                    s.Totalamount.ToString().Contains(search)).Cast<object>().ToList();
+        }
         public async Task<IActionResult> CreateBenefit(Benefit benefit)
         {
             try

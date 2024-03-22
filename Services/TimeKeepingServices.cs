@@ -43,6 +43,31 @@ namespace API.Services
                 s.CheckOut,
             }).Cast<object>().ToList();
         }
+        public async Task<List<object>> SearchStaffTimeKeeping(string search)
+        {
+            search = search.ToLower();
+            var timeKeeping = await _modelContext.StaffTimeKeepings.ToListAsync();
+
+            return timeKeeping.Select(s => new
+            {
+                s.WsId,
+                s.WorkDate,
+                s.StaffId,
+                s.FullName,
+                s.PositionName,
+                s.DepartmentName,
+                s.ShiftName,
+                s.CheckIn,
+                s.CheckOut,
+            }).Where(s => s.WsId.ToLower().Contains(search) ||
+                     s.WorkDate.ToString().Contains(search) ||
+                     s.FullName.ToLower().Contains(search) ||
+                     s.PositionName.ToLower().Contains(search) ||
+                     s.DepartmentName.ToLower().Contains(search) ||
+                     s.ShiftName.ToLower().Contains(search) ||
+                     s.CheckIn.ToString().Contains(search) ||
+                     s.CheckOut.ToString().Contains(search)).Cast<object>().ToList();
+        }
         public async Task<IActionResult> CreateTimeKeeping(TimeKeeping timeKeeping)
         {
             try

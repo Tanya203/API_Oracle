@@ -22,6 +22,14 @@ namespace API.Controllers
             var result = await _shiftServices.GetAllShift();
             return Ok(result);
         }
+
+        [HttpGet("/SearchShift")]
+        public async Task<IActionResult> SearchShift(string search)
+        {
+            var result = await _shiftServices.SearchShift(search);
+            return Ok(result);
+        }
+
         [HttpPost("/AddShift")]
         public async Task<IActionResult> CreateShift(Shift shift)
         {

@@ -23,6 +23,21 @@ namespace API.Services
                 s.DepartmentName,
             }).Cast<object>().ToList();
         }
+
+        public async Task<List<object>> SearchDepartment(string search)
+        {
+            search = search.ToLower();
+
+            var department = await _modelContext.Departments.ToListAsync();
+
+            return department.Select(s => new
+            {
+                s.DpId,
+                s.DepartmentName,
+            }).Where(s => s.DpId.ToLower().Contains(search) ||
+                     s.DepartmentName != null && s.DepartmentName.ToLower().Contains(search)).Cast<object>().ToList();
+        }
+
         public async Task<IActionResult> CreateDepartment(Department department)
         {
             try

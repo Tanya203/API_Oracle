@@ -22,6 +22,14 @@ namespace API.Controllers
             var result = await _positionServices.GetAllPosition();
             return Ok(result);
         }
+
+        [HttpGet("/SearchPosition")]
+        public async Task<IActionResult> SearchPosition(string search)
+        {
+            var result = await _positionServices.SearchPosition(search);
+            return Ok(result);
+        }
+
         [HttpPost("/AddPosition")]
         public async Task<IActionResult> CreatePosition(Position position)
         {

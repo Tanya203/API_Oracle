@@ -22,6 +22,13 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("/SearchWorkSchedule")]
+        public async Task<IActionResult> SearchWorkSchedule(string search)
+        {
+            var result = await _workScheduleServices.SearchWorkSchedule(search);
+            return Ok(result);
+        }
+
         [HttpPost("/AddWorkSchedule")]
         public async Task<IActionResult> CreateWorkSchedule(WorkSchedule workSchedule)
         {

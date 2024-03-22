@@ -35,6 +35,8 @@ public partial class ModelContext : DbContext
 
     public virtual DbSet<Staff> Staff { get; set; }
 
+    public virtual DbSet<StaffBenefitDetail> StaffBenefitDetails { get; set; }
+
     public virtual DbSet<StaffInfo> StaffInfos { get; set; }
 
     public virtual DbSet<StaffTimeKeeping> StaffTimeKeepings { get; set; }
@@ -424,16 +426,51 @@ public partial class ModelContext : DbContext
                 .HasConstraintName("FK_PS_ID");
         });
 
+        modelBuilder.Entity<StaffBenefitDetail>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("STAFF_BENEFIT_DETAIL");
+
+            entity.Property(e => e.Amount)
+                .HasColumnType("NUMBER(38,3)")
+                .HasColumnName("AMOUNT");
+            entity.Property(e => e.BenefitName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("BENEFIT_NAME");
+            entity.Property(e => e.BnId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("BN_ID");
+            entity.Property(e => e.DepartmentName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("DEPARTMENT_NAME");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(152)
+                .IsUnicode(false)
+                .HasColumnName("FULL_NAME");
+            entity.Property(e => e.Note)
+                .HasMaxLength(1000)
+                .IsUnicode(false)
+                .HasColumnName("NOTE");
+            entity.Property(e => e.PositionName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("POSITION_NAME");
+            entity.Property(e => e.StaffId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STAFF_ID");
+        });
+
         modelBuilder.Entity<StaffInfo>(entity =>
         {
             entity
                 .HasNoKey()
                 .ToView("STAFF_INFO");
 
-            entity.Property(e => e.Account)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("ACCOUNT");
             entity.Property(e => e.Address)
                 .HasMaxLength(317)
                 .IsUnicode(false)
@@ -582,6 +619,7 @@ public partial class ModelContext : DbContext
             entity.Property(e => e.WsId)
                 .HasMaxLength(20)
                 .IsUnicode(false)
+                .ValueGeneratedOnAdd()
                 .HasColumnName("WS_ID");
             entity.Property(e => e.StaffId)
                 .HasMaxLength(20)

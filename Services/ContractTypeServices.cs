@@ -24,6 +24,21 @@ namespace API.Services
                 s.ContractTypeName,
             }).Cast<object>().ToList();            
         }
+        public async Task<List<object>> SearchContractType(string search)
+        {
+            search = search.ToLower();
+
+            var shiftType = await _modelContext.ContractTypes.ToListAsync();
+
+            return shiftType.Select(s => new
+            {
+                s.CtId,
+                s.TkmId,
+                s.ContractTypeName,
+            }).Where(s => s.CtId.ToLower().Contains(search) ||
+                     s.TkmId != null && s.TkmId.ToLower().Contains(search) || 
+                     s.ContractTypeName != null && s.ContractTypeName.ToLower().Contains(search)).Cast<object>().ToList();
+        }
         public async Task<IActionResult> CreateContractType(ContractType contractType)
         {
             try

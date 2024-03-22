@@ -24,6 +24,23 @@ namespace API.Services
                 s.PositionName
             }).Cast<object>().ToList();
         }
+
+        public async Task<List<object>> SearchPosition(string search)
+        {
+            search = search.ToLower();
+
+            var position = await _modelContext.Positions.ToListAsync();
+
+            return position.Select(s => new
+            {
+                s.PsId,
+                s.DpId,
+                s.PositionName
+            }).Where(s => s.PsId.ToLower().Contains(search) ||
+                     s.DpId != null && s.DpId.ToLower().Contains(search) ||
+                     s.PositionName != null && s.PositionName.ToLower().Contains(search)).Cast<object>().ToList();
+        }
+
         public async Task<IActionResult> CreatePosition(Position position)
         {
             try
