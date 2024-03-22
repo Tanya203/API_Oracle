@@ -1,11 +1,8 @@
 ﻿using API.Models;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Text;
-using test_api.Services;
 
-namespace test_api.Controllers
+namespace API.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]

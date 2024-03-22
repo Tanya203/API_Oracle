@@ -1,8 +1,8 @@
 ﻿using API.Models;
 using Microsoft.AspNetCore.Mvc;
-using test_api.Services;
+using API.Services;
 
-namespace test_api.Controllers
+namespace API.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]

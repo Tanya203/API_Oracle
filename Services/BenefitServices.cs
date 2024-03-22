@@ -2,7 +2,7 @@
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace test_api.Services
+namespace API.Services
 {
     public class BenefitServices
     {
