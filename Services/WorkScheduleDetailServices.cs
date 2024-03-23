@@ -33,10 +33,12 @@ namespace API.Services
             {
                 s.WsId,
                 s.WorkDate,
+                s.DateOff,
                 s.StaffId,
                 s.FullName,
                 s.PositionName,
-                s.DepartmentName
+                s.DepartmentName,
+                s.Note
             }).Cast<object>().ToList();
         }
         public async Task<List<object>> GetAllStaffWorlScheduleDetail()

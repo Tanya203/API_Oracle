@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Models;
 
@@ -168,6 +170,9 @@ public partial class ModelContext : DbContext
                 .HasNoKey()
                 .ToView("DAY_OFF_USED");
 
+            entity.Property(e => e.DateOff)
+                .HasPrecision(1)
+                .HasColumnName("DATE_OFF");
             entity.Property(e => e.DepartmentName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -176,6 +181,10 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(152)
                 .IsUnicode(false)
                 .HasColumnName("FULL_NAME");
+            entity.Property(e => e.Note)
+                .HasMaxLength(1000)
+                .IsUnicode(false)
+                .HasColumnName("NOTE");
             entity.Property(e => e.PositionName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
