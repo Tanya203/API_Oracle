@@ -13,6 +13,8 @@ public partial class StaffInfo
 
     public string? ContractTypeName { get; set; }
 
+    public string? Account { get; set; }
+
     public string? FullName { get; set; }
 
     public DateTime? DateOfBrith { get; set; }
