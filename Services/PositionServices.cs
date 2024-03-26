@@ -36,20 +36,22 @@ namespace API.Services
                 s.Count
             }).Cast<object>().ToList();
         }
-        public async Task<List<object>> SearchPosition(string search)
+        public async Task<List<object>> SearchPositionDetail(string search)
         {
             search = search.ToLower();
 
-            var position = await _modelContext.Positions.ToListAsync();
+            var position = await _modelContext.PositionDetails.ToListAsync();
 
             return position.Select(s => new
             {
                 s.PsId,
-                s.DpId,
-                s.PositionName
+                s.DepartmentName,
+                s.PositionName,
+                s.Count
             }).Where(s => s.PsId.ToLower().Contains(search) ||
-                     s.DpId != null && s.DpId.ToLower().Contains(search) ||
-                     s.PositionName != null && s.PositionName.ToLower().Contains(search)).Cast<object>().ToList();
+                     s.DepartmentName != null && s.DepartmentName.ToLower().Contains(search) ||
+                     s.PositionName != null && s.PositionName.ToLower().Contains(search) ||
+                     s.Count != null && s.Count.ToString().Contains(search)).Cast<object>().ToList();
         }
 
         public async Task<string> CreatePosition(Position position)
@@ -65,31 +67,31 @@ namespace API.Services
                 return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> UpdatePosition(Position position)
+        public async Task<string> UpdatePosition(Position position)
         {
             try
             {
                 _modelContext.Positions.Update(position);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> DeletePosition(string psID)
+        public async Task<string> DeletePosition(string psID)
         {
             try
             {
                 Position delete = _modelContext.Positions.FirstOrDefault(s => s.PsId == psID);
                 _modelContext.Positions.Remove(delete);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
     }
