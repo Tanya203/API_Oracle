@@ -50,7 +50,7 @@ namespace API.Services
                 s.Amount,
                 s.StaffQuantity,
                 s.Totalamount,
-            }).Where(s => s.BnId.Contains(search) ||
+            }).Where(s => s.BnId.ToLower().Contains(search) ||
                     s.BenefitName.ToLower().Contains(search) ||
                     s.Amount.ToString().Contains(search) ||
                     s.StaffQuantity.ToString().Contains(search) ||
