@@ -27,7 +27,11 @@ public partial class ModelContext : DbContext
 
     public virtual DbSet<Department> Departments { get; set; }
 
+    public virtual DbSet<DepartmentDetail> DepartmentDetails { get; set; }
+
     public virtual DbSet<Position> Positions { get; set; }
+
+    public virtual DbSet<PositionDetail> PositionDetails { get; set; }
 
     public virtual DbSet<Shift> Shifts { get; set; }
 
@@ -221,6 +225,25 @@ public partial class ModelContext : DbContext
                 .HasColumnName("DEPARTMENT_NAME");
         });
 
+        modelBuilder.Entity<DepartmentDetail>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("DEPARTMENT_DETAIL");
+
+            entity.Property(e => e.Count)
+                .HasColumnType("NUMBER")
+                .HasColumnName("COUNT");
+            entity.Property(e => e.DepartmentName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("DEPARTMENT_NAME");
+            entity.Property(e => e.DpId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("DP_ID");
+        });
+
         modelBuilder.Entity<Position>(entity =>
         {
             entity.HasKey(e => e.PsId).HasName("POSITION_PK");
@@ -247,6 +270,29 @@ public partial class ModelContext : DbContext
                 .HasForeignKey(d => d.DpId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_DP_ID");
+        });
+
+        modelBuilder.Entity<PositionDetail>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("POSITION_DETAIL");
+
+            entity.Property(e => e.CountPs)
+                .HasColumnType("NUMBER")
+                .HasColumnName("COUNT_PS");
+            entity.Property(e => e.DepartmentName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("DEPARTMENT_NAME");
+            entity.Property(e => e.PositionName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("POSITION_NAME");
+            entity.Property(e => e.PsId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("PS_ID");
         });
 
         modelBuilder.Entity<Shift>(entity =>

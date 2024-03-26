@@ -22,6 +22,13 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("/GetPositionDetail")]
+        public async Task<IActionResult> GetPositionDetail()
+        {
+            var result = await _positionServices.GetPositionDetail();
+            return Ok(result);
+        }
+
         [HttpGet("/SearchPosition")]
         public async Task<IActionResult> SearchPosition(string search)
         {
