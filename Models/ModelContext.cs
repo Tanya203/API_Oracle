@@ -528,6 +528,10 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("GENDER");
+            entity.Property(e => e.Id)
+                .HasMaxLength(12)
+                .IsUnicode(false)
+                .HasColumnName("ID");
             entity.Property(e => e.Phone)
                 .HasMaxLength(50)
                 .IsUnicode(false)
