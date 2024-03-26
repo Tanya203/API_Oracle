@@ -33,7 +33,7 @@ namespace API.Services
                 s.PsId,
                 s.DepartmentName,
                 s.PositionName,
-                s.CountPs
+                s.Count
             }).Cast<object>().ToList();
         }
         public async Task<List<object>> SearchPosition(string search)
