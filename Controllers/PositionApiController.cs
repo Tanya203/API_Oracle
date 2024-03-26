@@ -29,10 +29,10 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/SearchPosition")]
-        public async Task<IActionResult> SearchPosition(string search)
+        [HttpGet("/SearchPositionDetail")]
+        public async Task<IActionResult> SearchPositionDetail(string search)
         {
-            var result = await _positionServices.SearchPosition(search);
+            var result = await _positionServices.SearchPositionDetail(search);
             return Ok(result);
         }
 
