@@ -58,6 +58,7 @@ namespace API.Services
                 s.PositionName,
                 s.DepartmentName,
                 s.ContractTypeName,
+                s.Account,
                 s.FullName,
                 s.DateOfBrith,
                 s.Address,
@@ -84,6 +85,7 @@ namespace API.Services
                 s.PositionName,
                 s.DepartmentName,
                 s.ContractTypeName,
+                s.Account,
                 s.FullName,
                 s.DateOfBrith,
                 s.Address,
@@ -101,6 +103,7 @@ namespace API.Services
                      s.PositionName.ToLower().Contains(search) ||
                      s.DepartmentName.ToLower().Contains(search) ||
                      s.ContractTypeName.ToLower().Contains(search) ||
+                     s.Account.ToLower().Contains(search) ||
                      s.FullName.ToLower().Contains(search) ||
                      s.DateOfBrith.ToString().Contains(search) ||
                      s.Address.ToLower().Contains(search) ||

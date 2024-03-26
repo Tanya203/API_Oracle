@@ -478,6 +478,10 @@ public partial class ModelContext : DbContext
                 .HasNoKey()
                 .ToView("STAFF_INFO");
 
+            entity.Property(e => e.Account)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("ACCOUNT");
             entity.Property(e => e.Address)
                 .HasMaxLength(317)
                 .IsUnicode(false)
