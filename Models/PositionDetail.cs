@@ -11,5 +11,5 @@ public partial class PositionDetail
 
     public string? PositionName { get; set; }
 
-    public decimal? CountPs { get; set; }
+    public decimal? Count { get; set; }
 }
