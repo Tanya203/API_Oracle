@@ -56,7 +56,7 @@ namespace API.Services
                 s.PositionName,
                 s.DepartmentName,
                 s.FullName
-            }).Where(s => (s.BnId.ToLower().Contains(search)) ||
+            }).Where(s => s.BnId.ToLower().Contains(search) ||
                     (s.BenefitName != null && s.BenefitName.ToLower().Contains(search)) ||
                     (s.Amount != null && s.Amount.ToString().Contains(search)) ||
                     (s.Note != null && s.Note.ToLower().Contains(search)) ||

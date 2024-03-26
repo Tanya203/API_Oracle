@@ -36,4 +36,6 @@ public partial class StaffInfo
     public decimal? DayOff { get; set; }
 
     public decimal? BasicSalary { get; set; }
+
+    public decimal? Benefit { get; set; }
 }

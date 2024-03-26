@@ -485,6 +485,9 @@ public partial class ModelContext : DbContext
             entity.Property(e => e.BasicSalary)
                 .HasColumnType("NUMBER")
                 .HasColumnName("BASIC_SALARY");
+            entity.Property(e => e.Benefit)
+                .HasColumnType("NUMBER")
+                .HasColumnName("BENEFIT");
             entity.Property(e => e.ContractDuration)
                 .HasColumnType("DATE")
                 .HasColumnName("CONTRACT_DURATION");
