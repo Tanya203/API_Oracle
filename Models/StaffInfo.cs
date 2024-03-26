@@ -15,6 +15,8 @@ public partial class StaffInfo
 
     public string? Account { get; set; }
 
+    public string? Id { get; set; }
+
     public string? FullName { get; set; }
 
     public DateTime? DateOfBrith { get; set; }
