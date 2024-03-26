@@ -41,17 +41,17 @@ namespace API.Services
                      s.PositionName != null && s.PositionName.ToLower().Contains(search)).Cast<object>().ToList();
         }
 
-        public async Task<IActionResult> CreatePosition(Position position)
+        public async Task<string> CreatePosition(Position position)
         {
             try
             {
                 _modelContext.Positions.Add(position);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
         public async Task<IActionResult> UpdatePosition(Position position)

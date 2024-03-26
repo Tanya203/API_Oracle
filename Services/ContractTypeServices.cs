@@ -39,44 +39,44 @@ namespace API.Services
                      s.TkmId != null && s.TkmId.ToLower().Contains(search) || 
                      s.ContractTypeName != null && s.ContractTypeName.ToLower().Contains(search)).Cast<object>().ToList();
         }
-        public async Task<IActionResult> CreateContractType(ContractType contractType)
+        public async Task<string> CreateContractType(ContractType contractType)
         {
             try
             {
                 _modelContext.ContractTypes.Add(contractType);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> UpdateContractType(ContractType contractType)
+        public async Task<string> UpdateContractType(ContractType contractType)
         {
             try
             {
                 _modelContext.ContractTypes.Update(contractType);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> DeleteContractType(string ctID)
+        public async Task<string> DeleteContractType(string ctID)
         {
             try
             {
                 ContractType delete = _modelContext.ContractTypes.FirstOrDefault(s => s.CtId == ctID);
                 _modelContext.ContractTypes.Remove(delete);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
     }

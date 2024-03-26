@@ -43,44 +43,44 @@ namespace API.Services
                      s.BeginTime != null && s.BeginTime.ToString().Contains(search) ||
                      s.EndTime != null && s.EndTime.ToString().Contains(search)).Cast<object>().ToList();
         }
-        public async Task<IActionResult> CreateShìt(Shift shift)
+        public async Task<string> CreateShìt(Shift shift)
         {
             try
             {
                 _modelContext.Shifts.Add(shift);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> UpdateShift(Shift shift)
+        public async Task<string> UpdateShift(Shift shift)
         {
             try
             {
                 _modelContext.Shifts.Update(shift);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> DeleteShift(string shiftID)
+        public async Task<string> DeleteShift(string shiftID)
         {
             try
             {
                 Shift delete = _modelContext.Shifts.FirstOrDefault(s => s.ShiftId == shiftID);
                 _modelContext.Shifts.Remove(delete);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex) 
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
     }

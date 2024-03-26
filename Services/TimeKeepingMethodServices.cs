@@ -34,30 +34,30 @@ namespace API.Services
             }).Where(s => s.TkmId.ToLower().Contains(search) ||
                      s.TimeKeepingMethodName != null && s.TimeKeepingMethodName.ToLower().Contains(search)).Cast<object>().ToList();
         }
-        public async Task<IActionResult> CreateTimeKeepingMethod(TimeKeepingMethod timeKeepingMethod)
+        public async Task<string> CreateTimeKeepingMethod(TimeKeepingMethod timeKeepingMethod)
         {
             try
             {
                 _modelContext.TimeKeepingMethods.Add(timeKeepingMethod);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> UpdateTimeKeepingMethod(TimeKeepingMethod timeKeepingMethod)
+        public async Task<string> UpdateTimeKeepingMethod(TimeKeepingMethod timeKeepingMethod)
         {
             try
             {
                 _modelContext.TimeKeepingMethods.Update(timeKeepingMethod);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
         public async Task<IActionResult> DeleteTimeKeepingMethod(string tkmID)

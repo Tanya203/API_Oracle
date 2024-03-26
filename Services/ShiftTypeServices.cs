@@ -38,44 +38,44 @@ namespace API.Services
                      s.ShiftTypeName != null && s.ShiftTypeName.ToLower().Contains(search) ||
                      s.SalaryCoefficient != null && s.SalaryCoefficient.ToString().Contains(search)).Cast<object>().ToList();
         }
-        public async Task<IActionResult> CreateShiftType(ShiftType shiftType)
+        public async Task<string> CreateShiftType(ShiftType shiftType)
         {
             try
             {
                 _modelContext.ShiftTypes.Add(shiftType);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message; ;
             }
         }
-        public async Task<IActionResult> UpdateShiftType(ShiftType shiftType)
+        public async Task<string> UpdateShiftType(ShiftType shiftType)
         {
             try
             {
                 _modelContext.ShiftTypes.Update(shiftType);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> DeleteShiftType(string stID)
+        public async Task<string> DeleteShiftType(string stID)
         {
             try
             {
                 ShiftType delete = _modelContext.ShiftTypes.FirstOrDefault(s => s.StId == stID);
                 _modelContext.ShiftTypes.Remove(delete);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
     }

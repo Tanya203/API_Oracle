@@ -35,17 +35,17 @@ namespace API.Services
             }).Where(s => s.WsId.ToLower().Contains(search) ||
                     s.WorkDate.ToString().Contains(search)).Cast<object>().ToList();
         }
-        public async Task<IActionResult> CreateWorkSchedule(WorkSchedule workSchedule)
+        public async Task<string> CreateWorkSchedule(WorkSchedule workSchedule)
         {
             try
             {
                 _modelContext.WorkSchedules.Add(workSchedule);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success"; return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
     }
