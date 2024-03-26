@@ -23,6 +23,17 @@ namespace API.Services
                 s.DepartmentName,
             }).Cast<object>().ToList();
         }
+        public async Task<List<object>> GetDepartmentDetail()
+        {
+            var department = await _modelContext.DepartmentDetails.ToListAsync();
+
+            return department.Select(s => new
+            {
+                s.DpId,
+                s.DepartmentName,
+                s.Count,
+            }).Cast<object>().ToList();
+        }
 
         public async Task<List<object>> SearchDepartment(string search)
         {

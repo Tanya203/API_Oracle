@@ -24,7 +24,18 @@ namespace API.Services
                 s.PositionName
             }).Cast<object>().ToList();
         }
+        public async Task<List<object>> GetPositionDetail()
+        {
+            var position = await _modelContext.PositionDetails.ToListAsync();
 
+            return position.Select(s => new
+            {
+                s.PsId,
+                s.DepartmentName,
+                s.PositionName,
+                s.CountPs
+            }).Cast<object>().ToList();
+        }
         public async Task<List<object>> SearchPosition(string search)
         {
             search = search.ToLower();
