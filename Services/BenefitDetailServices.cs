@@ -65,44 +65,44 @@ namespace API.Services
                     (s.DepartmentName != null && s.DepartmentName.ToLower().Contains(search)) ||
                     (s.FullName != null && s.FullName.ToLower().Contains(search))).Cast<object>().ToList();
         }
-        public async Task<IActionResult> CreateBenefitDetail([FromBody] BenefitDetail benefitDetail)
+        public async Task<string> CreateBenefitDetail([FromBody] BenefitDetail benefitDetail)
         {
             try
             {
                 _modelContext.BenefitDetails.Add(benefitDetail);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> UpdateBenefitDetail(BenefitDetail benefitDetail)
+        public async Task<string> UpdateBenefitDetail(BenefitDetail benefitDetail)
         {
             try
             {
                 _modelContext.BenefitDetails.Update(benefitDetail);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> DeleteBenefitDetail(string bnID, string staffID)
+        public async Task<string> DeleteBenefitDetail(string bnID, string staffID)
         {
             try
             {
                 BenefitDetail delete = _modelContext.BenefitDetails.FirstOrDefault(s => s.BnId == bnID && s.StaffId == staffID);
                 _modelContext.BenefitDetails.Remove(delete);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
 

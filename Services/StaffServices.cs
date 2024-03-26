@@ -112,44 +112,44 @@ namespace API.Services
                      s.DayOff.ToString().Contains(search) ||
                      s.BasicSalary.ToString().Contains(search)).Cast<object>().ToList();
         }
-        public async Task<IActionResult> CreateStaff(Staff staff)
+        public async Task<string> CreateStaff(Staff staff)
         {
             try
             {
                 _modelContext.Staff.Add(staff);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> UpdateStaff(Staff staff)
+        public async Task<string> UpdateStaff(Staff staff)
         {
             try
             {
                 _modelContext.Staff.Update(staff);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success"; ;
             }
             catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> DeleteStaff(string staffID)
+        public async Task<string> DeleteStaff(string staffID)
         {
             try
             {
                 Staff delete = _modelContext.Staff.FirstOrDefault(s => s.StaffId == staffID);
                 _modelContext.Staff.Remove(delete);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
     }

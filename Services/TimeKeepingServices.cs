@@ -68,17 +68,17 @@ namespace API.Services
                      s.CheckIn.ToString().Contains(search) ||
                      s.CheckOut.ToString().Contains(search)).Cast<object>().ToList();
         }
-        public async Task<IActionResult> CreateTimeKeeping(TimeKeeping timeKeeping)
+        public async Task<string> CreateTimeKeeping(TimeKeeping timeKeeping)
         {
             try
             {
                 _modelContext.TimeKeepings.Add(timeKeeping);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
     }

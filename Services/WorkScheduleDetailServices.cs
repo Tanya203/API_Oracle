@@ -82,30 +82,30 @@ namespace API.Services
                      s.DateOff.ToString().Contains(search)).Cast<object>().ToList();
 
         }
-        public async Task<IActionResult> CreateWorkScheduleDetail(WorkScheduleDetail workScheduleDetail)
+        public async Task<string> CreateWorkScheduleDetail(WorkScheduleDetail workScheduleDetail)
         {
             try
             {
                 _modelContext.WorkScheduleDetails.Add(workScheduleDetail);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> UpdateWorkScheduleDetail(WorkScheduleDetail workScheduleDetail)
+        public async Task<string> UpdateWorkScheduleDetail(WorkScheduleDetail workScheduleDetail)
         {
             try
             {
                 _modelContext.WorkScheduleDetails.Update(workScheduleDetail);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
     }

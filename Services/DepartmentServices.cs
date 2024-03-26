@@ -38,44 +38,44 @@ namespace API.Services
                      s.DepartmentName != null && s.DepartmentName.ToLower().Contains(search)).Cast<object>().ToList();
         }
 
-        public async Task<IActionResult> CreateDepartment(Department department)
+        public async Task<string> CreateDepartment(Department department)
         {
             try
             {
                 _modelContext.Departments.Add(department);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> UpdateDepartment(Department department)
+        public async Task<string> UpdateDepartment(Department department)
         {
             try
             {
                 _modelContext.Departments.Update(department);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
-        public async Task<IActionResult> DeleteDepartment(string dpID)
+        public async Task<string> DeleteDepartment(string dpID)
         {
             try
             {
                 Department delete = _modelContext.Departments.FirstOrDefault(s => s.DpId == dpID);
                 _modelContext.Departments.Remove(delete);
                 await _modelContext.SaveChangesAsync();
-                return new StatusCodeResult(StatusCodes.Status200OK);
+                return "Success";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
         }
     }
