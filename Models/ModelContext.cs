@@ -278,9 +278,9 @@ public partial class ModelContext : DbContext
                 .HasNoKey()
                 .ToView("POSITION_DETAIL");
 
-            entity.Property(e => e.CountPs)
+            entity.Property(e => e.Count)
                 .HasColumnType("NUMBER")
-                .HasColumnName("COUNT_PS");
+                .HasColumnName("COUNT");
             entity.Property(e => e.DepartmentName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
