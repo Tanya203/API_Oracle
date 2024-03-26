@@ -69,7 +69,8 @@ namespace API.Services
                 s.ContractDuration,
                 s.Status,
                 s.DayOff,
-                s.BasicSalary
+                s.BasicSalary,
+                s.Benefit,
             }).Cast<object>().ToList();
         }
         public async Task<List<object>> SearchStaffInfo(string search)
@@ -94,7 +95,8 @@ namespace API.Services
                 s.ContractDuration,
                 s.Status,
                 s.DayOff,
-                s.BasicSalary
+                s.BasicSalary,
+                s.Benefit,
             }).Where(s => s.StaffId.ToLower().Contains(search) ||
                      s.PositionName.ToLower().Contains(search) ||
                      s.DepartmentName.ToLower().Contains(search) ||
@@ -110,7 +112,8 @@ namespace API.Services
                      s.ContractDuration.ToString().Contains(search) ||
                      s.Status.Contains(search) ||
                      s.DayOff.ToString().Contains(search) ||
-                     s.BasicSalary.ToString().Contains(search)).Cast<object>().ToList();
+                     s.BasicSalary.ToString().Contains(search) ||
+                     s.Benefit.ToString().Contains(search)).Cast<object>().ToList();
         }
         public async Task<string> CreateStaff(Staff staff)
         {
