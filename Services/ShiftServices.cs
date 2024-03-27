@@ -25,20 +25,33 @@ namespace API.Services
                 s.EndTime,
             }).Cast<object>().ToList();
         }
-        public async Task<List<object>> SearchShift(string search)
+        public async Task<List<object>> GetShiftDetail()
         {
-            search = search.ToLower();
-            var shift = await _modelContext.Shifts.ToListAsync();
+            var shift = await _modelContext.ShiftDetails.ToListAsync();
 
             return shift.Select(s => new
             {
                 s.ShiftId,
-                s.StId, 
+                s.ShiftTypeName,
+                s.ShiftName,
+                s.BeginTime,
+                s.EndTime,
+            }).Cast<object>().ToList();
+        }
+        public async Task<List<object>> SearchShiftDetail(string search)
+        {
+            search = search.ToLower();
+            var shift = await _modelContext.ShiftDetails.ToListAsync();
+
+            return shift.Select(s => new
+            {
+                s.ShiftId,
+                s.ShiftTypeName,
                 s.ShiftName,
                 s.BeginTime,
                 s.EndTime,
             }).Where(s => s.ShiftId.ToLower().Contains(search) ||
-                     s.StId != null && s.StId.ToLower().Contains(search) ||
+                     s.ShiftTypeName != null && s.ShiftTypeName.ToLower().Contains(search) ||
                      s.ShiftName != null && s.ShiftName.ToLower().Contains(search) ||
                      s.BeginTime != null && s.BeginTime.ToString().Contains(search) ||
                      s.EndTime != null && s.EndTime.ToString().Contains(search)).Cast<object>().ToList();

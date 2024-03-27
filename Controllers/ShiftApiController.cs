@@ -22,10 +22,17 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/SearchShift")]
-        public async Task<IActionResult> SearchShift(string search)
+        [HttpGet("/GetShiftDetail")]
+        public async Task<IActionResult> GetShiftDetail()
         {
-            var result = await _shiftServices.SearchShift(search);
+            var result = await _shiftServices.GetShiftDetail();
+            return Ok(result);
+        }
+
+        [HttpGet("/SearchShiftDetail")]
+        public async Task<IActionResult> SearchShiftDetail(string search)
+        {
+            var result = await _shiftServices.SearchShiftDetail(search);
             return Ok(result);
         }
 
