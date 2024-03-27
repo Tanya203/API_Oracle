@@ -35,6 +35,8 @@ public partial class ModelContext : DbContext
 
     public virtual DbSet<Shift> Shifts { get; set; }
 
+    public virtual DbSet<ShiftDetail> ShiftDetails { get; set; }
+
     public virtual DbSet<ShiftType> ShiftTypes { get; set; }
 
     public virtual DbSet<Staff> Staff { get; set; }
@@ -327,6 +329,32 @@ public partial class ModelContext : DbContext
                 .HasForeignKey(d => d.StId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_ST_ID");
+        });
+
+        modelBuilder.Entity<ShiftDetail>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("SHIFT_DETAIL");
+
+            entity.Property(e => e.BeginTime)
+                .HasColumnType("INTERVAL DAY(2) TO SECOND(6)")
+                .HasColumnName("BEGIN_TIME");
+            entity.Property(e => e.EndTime)
+                .HasColumnType("INTERVAL DAY(2) TO SECOND(6)")
+                .HasColumnName("END_TIME");
+            entity.Property(e => e.ShiftId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("SHIFT_ID");
+            entity.Property(e => e.ShiftName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("SHIFT_NAME");
+            entity.Property(e => e.ShiftTypeName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("SHIFT_TYPE_NAME");
         });
 
         modelBuilder.Entity<ShiftType>(entity =>
