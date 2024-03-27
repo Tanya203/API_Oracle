@@ -22,10 +22,17 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/SearchContractType")]
+        [HttpGet("/GetContractTypeDetail")]
+        public async Task<IActionResult> GetContractTypeDetail()
+        {
+            var result = await _contractTypeServices.GetContractTypeDetail();
+            return Ok(result);
+        }
+
+        [HttpGet("/SearchContractTypeDetail")]
         public async Task<IActionResult> SearchContractTypes(string search)
         {
-            var result = await _contractTypeServices.SearchContractType(search);
+            var result = await _contractTypeServices.SearchContractTypeDetail(search);
             return Ok(result);
         }
 

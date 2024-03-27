@@ -21,6 +21,8 @@ public partial class ModelContext : DbContext
 
     public virtual DbSet<ContractType> ContractTypes { get; set; }
 
+    public virtual DbSet<ContractTypeDetail> ContractTypeDetails { get; set; }
+
     public virtual DbSet<CountBenefit> CountBenefits { get; set; }
 
     public virtual DbSet<DayOffUsed> DayOffUseds { get; set; }
@@ -143,6 +145,29 @@ public partial class ModelContext : DbContext
                 .HasForeignKey(d => d.TkmId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("CONTRACT_TYPE_FK1");
+        });
+
+        modelBuilder.Entity<ContractTypeDetail>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("CONTRACT_TYPE_DETAIL");
+
+            entity.Property(e => e.ContractTypeName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("CONTRACT_TYPE_NAME");
+            entity.Property(e => e.Count)
+                .HasColumnType("NUMBER")
+                .HasColumnName("COUNT");
+            entity.Property(e => e.CtId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("CT_ID");
+            entity.Property(e => e.TimeKeepingMethodName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("TIME_KEEPING_METHOD_NAME");
         });
 
         modelBuilder.Entity<CountBenefit>(entity =>
