@@ -42,4 +42,8 @@ public partial class StaffInfo
     public decimal? BasicSalary { get; set; }
 
     public decimal? Benefit { get; set; }
+
+    public byte[]? Picture { get; set; }
+
+    public DateTime? LockDate { get; set; }
 }
