@@ -631,10 +631,16 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(12)
                 .IsUnicode(false)
                 .HasColumnName("ID");
+            entity.Property(e => e.LockDate)
+                .HasColumnType("DATE")
+                .HasColumnName("LOCK_DATE");
             entity.Property(e => e.Phone)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("PHONE");
+            entity.Property(e => e.Picture)
+                .HasColumnType("BLOB")
+                .HasColumnName("PICTURE");
             entity.Property(e => e.PositionName)
                 .HasMaxLength(50)
                 .IsUnicode(false)

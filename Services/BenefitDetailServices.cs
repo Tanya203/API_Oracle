@@ -65,7 +65,7 @@ namespace API.Services
                     (s.DepartmentName != null && s.DepartmentName.ToLower().Contains(search)) ||
                     (s.FullName != null && s.FullName.ToLower().Contains(search))).Cast<object>().ToList();
         }
-        public async Task<string> CreateBenefitDetail([FromBody] BenefitDetail benefitDetail)
+        public async Task<string> CreateBenefitDetail(BenefitDetail benefitDetail)
         {
             try
             {
