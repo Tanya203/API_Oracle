@@ -13,12 +13,20 @@ namespace API.Controllers
             _procedureServices = procedureServices;
         }
 
-        [HttpGet("/AutoSchedule")]
+        [HttpPost("/AutoSchedule")]
         public async Task<IActionResult> AutoSchedule(string month)
         {
             await _procedureServices.AutoSchedule(month);
             return Ok("Success");
         }
+
+        [HttpPost("/AutoUpdateWorkSchedule")]
+        public async Task<IActionResult> AutoUpdateWorkSchedule(DateTime workDate)
+        {
+            await _procedureServices.AutoUpdateWorkSchedule(workDate);
+            return Ok("Success");
+        }
+
         [HttpGet("/Salary")]
         public async Task<IActionResult> MonthlySalaryStatistics(string month)
         {
