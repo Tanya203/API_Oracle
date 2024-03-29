@@ -41,7 +41,7 @@ namespace API.Services
             {
                 _modelContext.WorkSchedules.Add(workSchedule);
                 await _modelContext.SaveChangesAsync();
-                return "Success"; return "Success";
+                return "Success";
             }
             catch (Exception ex)
             {

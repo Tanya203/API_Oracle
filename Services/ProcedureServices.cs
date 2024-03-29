@@ -1,4 +1,6 @@
-﻿using API.ViewModels;
+﻿using API.Models;
+using API.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 using System.Data;
@@ -7,7 +9,11 @@ namespace API.Services
 {
     public class ProcedureServices
     {
-        public ProcedureServices() { }
+        private readonly ModelContext _modelContext;
+        public ProcedureServices() 
+        {
+            _modelContext = new ModelContext();
+        }
         public async Task<string> AutoSchedule(string month)
         {
             try
@@ -32,7 +38,31 @@ namespace API.Services
             {
                 return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
+        }
+        public async Task<string> AutoUpdateWorkSchedule(DateTime workDate)
+        {
+            try
+            {
+                using (OracleConnection connection = new OracleConnection("Data Source = localhost:1521 / orcl; User Id = CUOIKY; Password = 12345; Validate Connection = true; "))
+                {
+                    await connection.OpenAsync();
 
+                    using (OracleCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "AUTO_UPDATE_WORK_SCHEDULE";
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add("p_parameter", OracleDbType.Date).Value = workDate;
+
+                        await command.ExecuteNonQueryAsync();
+                        return "Success";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+            }
         }
         public async Task<string> TimeKeeping(string staffID)
         {
