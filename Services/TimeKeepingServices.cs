@@ -26,7 +26,7 @@ namespace API.Services
                 s.CheckOut,
             }).Cast<object>().ToList();
         }
-        public async Task<List<object>> GetStaffTimeKeeping()
+        public async Task<List<object>> GetStaffTimeKeepingById(string wsID)
         {
             var timeKeeping = await _modelContext.StaffTimeKeepings.ToListAsync();
 
@@ -41,9 +41,9 @@ namespace API.Services
                 s.ShiftName,
                 s.CheckIn,
                 s.CheckOut,
-            }).Cast<object>().ToList();
+            }).Where(s => s.WsId == wsID).Cast<object>().ToList();
         }
-        public async Task<List<object>> SearchStaffTimeKeeping(string search)
+        public async Task<List<object>> SearchStaffTimeKeepinById(string wsID,string search)
         {
             search = search.ToLower();
             var timeKeeping = await _modelContext.StaffTimeKeepings.ToListAsync();
@@ -59,14 +59,14 @@ namespace API.Services
                 s.ShiftName,
                 s.CheckIn,
                 s.CheckOut,
-            }).Where(s => s.WsId.ToLower().Contains(search) ||
-                     s.WorkDate.ToString().Contains(search) ||
+            }).Where(s => s.WsId == wsID && 
+                     (s.StaffId.ToLower().Contains(search) ||
                      s.FullName.ToLower().Contains(search) ||
                      s.PositionName.ToLower().Contains(search) ||
                      s.DepartmentName.ToLower().Contains(search) ||
                      s.ShiftName.ToLower().Contains(search) ||
                      s.CheckIn.ToString().Contains(search) ||
-                     s.CheckOut.ToString().Contains(search)).Cast<object>().ToList();
+                     s.CheckOut.ToString().Contains(search))).Cast<object>().ToList();
         }
         public async Task<string> CreateTimeKeeping(TimeKeeping timeKeeping)
         {

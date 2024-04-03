@@ -21,17 +21,17 @@ namespace API.Controllers
             var result = await _timeKeepingServices.GetAllTimeKeeping();
             return Ok(result);
         }
-        [HttpGet("/GetStaffTimeKeeping")]
-        public async Task<IActionResult> GetStaffTimeKeeping()
+        [HttpGet("/GetStaffTimeKeepingById")]
+        public async Task<IActionResult> GetStaffTimeKeepingById(string wsId)
         {
-            var result = await _timeKeepingServices.GetStaffTimeKeeping();
+            var result = await _timeKeepingServices.GetStaffTimeKeepingById(wsId);
             return Ok(result);
         }
 
-        [HttpGet("/SearchStaffTimeKeeping")]
-        public async Task<IActionResult> SearchStaffTimeKeeping(string search)
+        [HttpGet("/SearchStaffTimeKeepinById")]
+        public async Task<IActionResult> SearchStaffTimeKeepinById(string wsId,string search)
         {
-            var result = await _timeKeepingServices.SearchStaffTimeKeeping(search);
+            var result = await _timeKeepingServices.SearchStaffTimeKeepinById(wsId, search);
             return Ok(result);
         }
 
