@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API.Services
 {
@@ -41,7 +42,7 @@ namespace API.Services
                 s.Note
             }).Cast<object>().ToList();
         }
-        public async Task<List<object>> GetAllStaffWorlScheduleDetail()
+        public async Task<List<object>> GetStaffWorlScheduleDetailById(string wsId)
         {
             var workScheduleDetail = await _modelContext.StaffWorkScheduleDetails.ToListAsync();
 
@@ -55,9 +56,9 @@ namespace API.Services
                 s.DepartmentName,
                 s.DateOff,
                 s.DayOff
-            }).Cast<object>().ToList();
+            }).Where(s => s.WsId == wsId).Cast<object>().ToList();
         }
-        public async Task<List<object>> SearchStaffWorlScheduleDetail(string search)
+        public async Task<List<object>> SearchStaffWorlScheduleDetailById(string wsId, string search)
         {
             search = search.ToLower();
             var workScheduleDetail = await _modelContext.StaffWorkScheduleDetails.ToListAsync();
@@ -72,14 +73,13 @@ namespace API.Services
                 s.DepartmentName,
                 s.DateOff,
                 s.DayOff
-            }).Where(s => s.WsId.ToLower().Contains(search) ||
-                     s.WorkDate.ToString().Contains(search) ||
-                     s.StaffId.ToLower().Contains(search) ||
+            }).Where(s => s.WsId == wsId &&
+                     (s.StaffId.ToLower().Contains(search) ||
                      s.FullName.ToLower().Contains(search) ||
                      s.PositionName.ToLower().Contains(search) ||
                      s.DepartmentName.ToLower().Contains(search) ||
                      s.DayOff.ToString().Contains(search) ||
-                     s.DateOff.ToString().Contains(search)).Cast<object>().ToList();
+                     s.DateOff.ToString().Contains(search))).Cast<object>().ToList();
 
         }
         public async Task<string> CreateWorkScheduleDetail(WorkScheduleDetail workScheduleDetail)
