@@ -151,7 +151,7 @@ namespace API.Services
 
                     using (OracleCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "CHECK_ON_DELETE_WORK_TIME_KEEPING";
+                        command.CommandText = " CHECK_ON_DELETE_TIME_KEEPING";
                         command.CommandType = CommandType.StoredProcedure;
 
                         command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = wsID;
