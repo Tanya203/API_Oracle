@@ -52,7 +52,7 @@ namespace API.Services
                         command.CommandText = "AUTO_SCHEDULE_DATE";
                         command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("p_parameter", OracleDbType.Date).Value = date.Date;
+                        command.Parameters.Add("p_parameter", OracleDbType.Date).Value = date;
 
                         await command.ExecuteNonQueryAsync();
                         return "Success";
@@ -63,32 +63,7 @@ namespace API.Services
             {
                 return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
-        }
-        public async Task<string> AutoUpdateWorkSchedule(DateTime workDate)
-        {
-            try
-            {
-                using (OracleConnection connection = new OracleConnection("Data Source = localhost:1521 / orcl; User Id = CUOIKY; Password = 12345; Validate Connection = true; "))
-                {
-                    await connection.OpenAsync();
-
-                    using (OracleCommand command = connection.CreateCommand())
-                    {
-                        command.CommandText = "AUTO_UPDATE_WORK_SCHEDULE";
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        command.Parameters.Add("p_parameter", OracleDbType.Date).Value = workDate;
-
-                        await command.ExecuteNonQueryAsync();
-                        return "Success";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-            }
-        }
+        }       
         public async Task<string> TimeKeeping(string staffID)
         {
             try
