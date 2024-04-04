@@ -20,6 +20,13 @@ namespace API.Controllers
             return Ok("Success");
         }
 
+        [HttpPost("/AutoScheduleDate")]
+        public async Task<IActionResult> AutoScheduleDate(DateTime date)
+        {
+            await _procedureServices.AutoScheduleDate(date);
+            return Ok("Success");
+        }
+
         [HttpPost("/AutoUpdateWorkSchedule")]
         public async Task<IActionResult> AutoUpdateWorkSchedule(DateTime workDate)
         {
