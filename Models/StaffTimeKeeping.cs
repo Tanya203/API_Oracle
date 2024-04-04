@@ -11,6 +11,8 @@ public partial class StaffTimeKeeping
 
     public string StaffId { get; set; } = null!;
 
+    public string ShiftId { get; set; } = null!;
+
     public string? FullName { get; set; }
 
     public string? PositionName { get; set; }

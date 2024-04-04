@@ -679,6 +679,10 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("POSITION_NAME");
+            entity.Property(e => e.ShiftId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("SHIFT_ID");
             entity.Property(e => e.ShiftName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
