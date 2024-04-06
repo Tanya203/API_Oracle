@@ -1,6 +1,4 @@
-﻿using API.Models;
-using API.ViewModels;
-using Microsoft.EntityFrameworkCore;
+﻿using API.ViewModels;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 using System.Data;
@@ -9,11 +7,7 @@ namespace API.Services
 {
     public class ProcedureServices
     {
-        private readonly ModelContext _modelContext;
-        public ProcedureServices() 
-        {
-            _modelContext = new ModelContext();
-        }
+        public ProcedureServices() { }
         public async Task<string> AutoSchedule(string month)
         {
             try
@@ -24,7 +18,7 @@ namespace API.Services
 
                     using (OracleCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "AUTO_SCHEDULE";
+                        command.CommandText = "AUTO_METHOD.AUTO_SCHEDULE";
                         command.CommandType = CommandType.StoredProcedure;
 
                         command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = month;
@@ -49,7 +43,7 @@ namespace API.Services
 
                     using (OracleCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "AUTO_SCHEDULE_DATE";
+                        command.CommandText = "AUTO_METHOD.AUTO_SCHEDULE_DATE";
                         command.CommandType = CommandType.StoredProcedure;
 
                         command.Parameters.Add("p_parameter", OracleDbType.Date).Value = date;
@@ -63,7 +57,30 @@ namespace API.Services
             {
                 return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
-        }       
+        }
+        public async Task<string> AddValue()
+        {
+            try
+            {
+                using (OracleConnection connection = new OracleConnection("Data Source = localhost:1521 / orcl; User Id = CUOIKY; Password = 12345; Validate Connection = true; "))
+                {
+                    await connection.OpenAsync();
+
+                    using (OracleCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "AUTO_METHOD.ADD_VALUE";
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        await command.ExecuteNonQueryAsync();
+                        return "Success";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+            }
+        }
         public async Task<string> TimeKeeping(string staffID)
         {
             try
@@ -74,7 +91,7 @@ namespace API.Services
 
                     using (OracleCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "TIME_KEEPING_CHECK";
+                        command.CommandText = "WORK_SCHEDULE_METHOD.TIME_KEEPING_CHECK";
                         command.CommandType = CommandType.StoredProcedure;
 
                         command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = staffID;
@@ -100,7 +117,7 @@ namespace API.Services
 
                     using (OracleCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "CHECK_ON_DELETE_WORK_SCHEDULE";
+                        command.CommandText = "CHECK_ON_DELETE.CHECK_ON_DELETE_WORK_SCHEDULE";
                         command.CommandType = CommandType.StoredProcedure;
 
                         command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = wsID;
@@ -125,7 +142,7 @@ namespace API.Services
 
                     using (OracleCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "CHECK_ON_DELETE_WORK_SCHEDULE_DETAIL";
+                        command.CommandText = "CHECK_ON_DELETE.CHECK_ON_DELETE_WORK_SCHEDULE_DETAIL";
                         command.CommandType = CommandType.StoredProcedure;
 
                         command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = wsID;
@@ -151,7 +168,7 @@ namespace API.Services
 
                     using (OracleCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = " CHECK_ON_DELETE_TIME_KEEPING";
+                        command.CommandText = "CHECK_ON_DELETE.CHECK_ON_DELETE_TIME_KEEPING";
                         command.CommandType = CommandType.StoredProcedure;
 
                         command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = wsID;
@@ -178,7 +195,7 @@ namespace API.Services
 
                 using (OracleCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "CACULATE_MONTH_SALARY";
+                    command.CommandText = "WORK_SCHEDULE_METHOD.CACULATE_MONTH_SALARY";
                     command.CommandType = CommandType.StoredProcedure;
 
                     OracleParameter outParameter = new OracleParameter();
