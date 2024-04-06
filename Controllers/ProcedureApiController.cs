@@ -14,6 +14,13 @@ namespace API.Controllers
             _procedureServices = procedureServices;
         }
 
+        [HttpGet("/Salary")]
+        public async Task<IActionResult> MonthlySalaryStatistics(string month)
+        {
+            var result = await _procedureServices.MonthlySalaryStatistics(month);
+            return Ok(result);
+        }
+
         [HttpPost("/AutoSchedule")]
         public async Task<IActionResult> AutoSchedule(string month)
         {
@@ -28,12 +35,13 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/Salary")]
-        public async Task<IActionResult> MonthlySalaryStatistics(string month)
+        [HttpPut("/AddValue")]
+        public async Task<IActionResult> AddValue()
         {
-            var result = await _procedureServices.MonthlySalaryStatistics(month);
+            var result = await _procedureServices.AddValue();
             return Ok(result);
         }
+        
         [HttpPut("/TimeKeeping")]
         public async Task<IActionResult> TimeKeeping(string staffID)
         {
