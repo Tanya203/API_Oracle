@@ -42,7 +42,7 @@ namespace API.Services
                 s.Note
             }).Cast<object>().ToList();
         }
-        public async Task<List<object>> GetStaffWorlScheduleDetailById(string wsId)
+        public async Task<List<object>> GetStaffWorkScheduleDetailById(string wsId)
         {
             var workScheduleDetail = await _modelContext.StaffWorkScheduleDetails.ToListAsync();
 
@@ -57,8 +57,8 @@ namespace API.Services
                 s.DateOff,
                 s.DayOff
             }).Where(s => s.WsId == wsId).Cast<object>().ToList();
-        }
-        public async Task<List<object>> SearchStaffWorlScheduleDetailById(string wsId, string search)
+        }       
+        public async Task<List<object>> SearchStaffWorkScheduleDetailById(string wsId, string search)
         {
             search = search.ToLower();
             var workScheduleDetail = await _modelContext.StaffWorkScheduleDetails.ToListAsync();
