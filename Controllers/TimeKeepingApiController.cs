@@ -28,6 +28,13 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("/GetStaffTimeKeepingByDate")]
+        public async Task<IActionResult> GetStaffTimeKeepingByDate(DateTime date)
+        {
+            var result = await _timeKeepingServices.GetStaffTimeKeepingByDate(date.Date);
+            return Ok(result);
+        }
+
         [HttpGet("/SearchStaffTimeKeepinById")]
         public async Task<IActionResult> SearchStaffTimeKeepinById(string wsId,string search)
         {

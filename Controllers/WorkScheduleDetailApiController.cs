@@ -27,17 +27,17 @@ namespace API.Controllers
             var result = await _workScheduleDetailServices.GetDayOffUsed();
             return Ok(result);
         }
-        [HttpGet("/GetStaffWorlScheduleDetailById")]
-        public async Task<IActionResult> GetStaffWorlScheduleDetailById(string wsId)
+        [HttpGet("/GetStaffWorkScheduleDetailById")]
+        public async Task<IActionResult> GetStaffWorkScheduleDetailById(string wsId)
         {
-            var result = await _workScheduleDetailServices.GetStaffWorlScheduleDetailById(wsId);
+            var result = await _workScheduleDetailServices.GetStaffWorkScheduleDetailById(wsId);
             return Ok(result);
         }
 
-        [HttpGet("/SearchStaffWorlScheduleDetailById")]
-        public async Task<IActionResult> SearchStaffWorlScheduleDetailById(string wsId,string search)
+        [HttpGet("/SearchStaffWorkScheduleDetailById")]
+        public async Task<IActionResult> SearchStaffWorkScheduleDetailById(string wsId,string search)
         {
-            var result = await _workScheduleDetailServices.SearchStaffWorlScheduleDetailById(wsId, search);
+            var result = await _workScheduleDetailServices.SearchStaffWorkScheduleDetailById(wsId, search);
             return Ok(result);
         }
 

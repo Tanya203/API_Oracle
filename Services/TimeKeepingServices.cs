@@ -44,6 +44,24 @@ namespace API.Services
                 s.CheckOut,
             }).Where(s => s.WsId == wsID).Cast<object>().ToList();
         }
+        public async Task<List<object>> GetStaffTimeKeepingByDate(DateTime date)
+        {
+            var timeKeeping = await _modelContext.StaffTimeKeepings.ToListAsync();
+
+            return timeKeeping.Select(s => new
+            {
+                s.WsId,
+                s.WorkDate,
+                s.StaffId,
+                s.ShiftId,
+                s.FullName,
+                s.PositionName,
+                s.DepartmentName,
+                s.ShiftName,
+                s.CheckIn,
+                s.CheckOut,
+            }).Where(s => s.WorkDate.Value.Date == date.Date).Cast<object>().ToList();
+        }
         public async Task<List<object>> SearchStaffTimeKeepinById(string wsID,string search)
         {
             search = search.ToLower();

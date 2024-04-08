@@ -219,9 +219,13 @@ namespace API.Services
                         {
                             MonthlySalaryStatisticsViewModels salary = new MonthlySalaryStatisticsViewModels();
                             salary.StaffId = reader.GetString(0);
-                            salary.TotalHour = reader.GetDecimal(1);
-                            salary.TotalBenefit = reader.GetDecimal(2);
-                            salary.Salary = reader.GetDecimal(3);
+                            salary.FullName = reader.GetString(1);
+                            salary.Department = reader.GetString(2);
+                            salary.Position = reader.GetString(3);
+                            salary.BasicSalary = reader.GetDecimal(4);
+                            salary.TotalHour = reader.GetDecimal(5);
+                            salary.TotalBenefit = reader.GetDecimal(6);
+                            salary.Salary = reader.GetDecimal(7);
                             salaryResults.Add(salary);
                         }
                         reader.Close();
