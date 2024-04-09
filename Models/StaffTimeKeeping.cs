@@ -7,7 +7,7 @@ public partial class StaffTimeKeeping
 {
     public string WsId { get; set; } = null!;
 
-    public DateTime? WorkDate { get; set; }
+    public DateTime WorkDate { get; set; }
 
     public string StaffId { get; set; } = null!;
 
