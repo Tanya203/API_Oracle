@@ -1,6 +1,4 @@
-﻿using API.ViewModels;
-using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
+﻿using Oracle.ManagedDataAccess.Client;
 using System.Data;
 
 namespace API.Services
@@ -47,6 +45,31 @@ namespace API.Services
                         command.CommandType = CommandType.StoredProcedure;
 
                         command.Parameters.Add("p_parameter", OracleDbType.Date).Value = date;
+
+                        await command.ExecuteNonQueryAsync();
+                        return "Success";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+            }
+        }
+        public async Task<string> AutoUpdateMonthSalaryDetail(string month)
+        {
+            try
+            {
+                using (OracleConnection connection = new OracleConnection("Data Source = localhost:1521 / orcl; User Id = CUOIKY; Password = 12345; Validate Connection = true; "))
+                {
+                    await connection.OpenAsync();
+
+                    using (OracleCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "AUTO_METHOD.AUTO_UPDATE_MONTH_SALARY_DETAIL";
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add("p_parameter", OracleDbType.Varchar2).Value = month;
 
                         await command.ExecuteNonQueryAsync();
                         return "Success";
@@ -184,57 +207,6 @@ namespace API.Services
             {
                 return ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
-        }
-        public async Task<List<object>> MonthlySalaryStatistics(string month)
-        {
-            List<object> salaryResults = new List<object>();
-
-            using (OracleConnection connection = new OracleConnection("Data Source=localhost:1521/orcl;User Id=CUOIKY;Password=12345;"))
-            {
-                await connection.OpenAsync();
-
-                using (OracleCommand command = connection.CreateCommand())
-                {
-                    command.CommandText = "WORK_SCHEDULE_METHOD.CACULATE_MONTH_SALARY";
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    OracleParameter outParameter = new OracleParameter();
-                    outParameter.ParameterName = "rec";
-                    outParameter.Direction = ParameterDirection.Output;
-                    outParameter.OracleDbType = OracleDbType.RefCursor;
-                    command.Parameters.Add(outParameter);
-
-                    OracleParameter inParameter = new OracleParameter();
-                    inParameter.ParameterName = "in_Month";
-                    inParameter.Value = month;
-                    command.Parameters.Add(inParameter);
-
-                    await command.ExecuteNonQueryAsync();
-
-                    OracleRefCursor refCursor = (OracleRefCursor)outParameter.Value;
-
-                    using (OracleDataReader reader = await Task.Run(() => refCursor.GetDataReader()))
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            MonthlySalaryStatisticsViewModels salary = new MonthlySalaryStatisticsViewModels();
-                            salary.StaffId = reader.GetString(0);
-                            salary.FullName = reader.GetString(1);
-                            salary.Department = reader.GetString(2);
-                            salary.Position = reader.GetString(3);
-                            salary.BasicSalary = reader.GetDecimal(4);
-                            salary.TotalHour = reader.GetDecimal(5);
-                            salary.TotalBenefit = reader.GetDecimal(6);
-                            salary.Salary = reader.GetDecimal(7);
-                            salaryResults.Add(salary);
-                        }
-                        reader.Close();
-                    }
-                        
-                }
-                connection.Close();
-            }
-            return salaryResults;
         }        
     }
 }

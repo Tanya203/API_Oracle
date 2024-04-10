@@ -61,6 +61,8 @@ public partial class Staff
 
     public virtual ContractType? Ct { get; set; }
 
+    public virtual ICollection<MonthSalaryDetail> MonthSalaryDetails { get; set; } = new List<MonthSalaryDetail>();
+
     public virtual Position? Ps { get; set; }
 
     public virtual ICollection<WorkScheduleDetail> WorkScheduleDetails { get; set; } = new List<WorkScheduleDetail>();

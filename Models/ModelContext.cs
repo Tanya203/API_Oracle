@@ -31,9 +31,15 @@ public partial class ModelContext : DbContext
 
     public virtual DbSet<DepartmentDetail> DepartmentDetails { get; set; }
 
+    public virtual DbSet<MonthSalary> MonthSalaries { get; set; }
+
+    public virtual DbSet<MonthSalaryDetail> MonthSalaryDetails { get; set; }
+
     public virtual DbSet<Position> Positions { get; set; }
 
     public virtual DbSet<PositionDetail> PositionDetails { get; set; }
+
+    public virtual DbSet<Salary> Salaries { get; set; }
 
     public virtual DbSet<Shift> Shifts { get; set; }
 
@@ -271,6 +277,58 @@ public partial class ModelContext : DbContext
                 .HasColumnName("DP_ID");
         });
 
+        modelBuilder.Entity<MonthSalary>(entity =>
+        {
+            entity.HasKey(e => e.MsId).HasName("MONTH_SALARY_PK");
+
+            entity.ToTable("MONTH_SALARY");
+
+            entity.HasIndex(e => e.Month, "UK_MONTH").IsUnique();
+
+            entity.Property(e => e.MsId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("MS_ID");
+            entity.Property(e => e.Month)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("MONTH");
+        });
+
+        modelBuilder.Entity<MonthSalaryDetail>(entity =>
+        {
+            entity.HasKey(e => new { e.MsId, e.StaffId }).HasName("TABLE1_PK");
+
+            entity.ToTable("MONTH_SALARY_DETAIL");
+
+            entity.Property(e => e.MsId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("MS_ID");
+            entity.Property(e => e.StaffId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STAFF_ID");
+            entity.Property(e => e.BasicSalary)
+                .HasColumnType("NUMBER")
+                .HasColumnName("BASIC_SALARY");
+            entity.Property(e => e.TotalBenefit)
+                .HasColumnType("NUMBER")
+                .HasColumnName("TOTAL_BENEFIT");
+            entity.Property(e => e.TotalWorkHours)
+                .HasColumnType("NUMBER")
+                .HasColumnName("TOTAL_WORK_HOURS");
+
+            entity.HasOne(d => d.Ms).WithMany(p => p.MonthSalaryDetails)
+                .HasForeignKey(d => d.MsId)
+                .HasConstraintName("FK_MS_ID");
+
+            entity.HasOne(d => d.Staff).WithMany(p => p.MonthSalaryDetails)
+                .HasForeignKey(d => d.StaffId)
+                .HasConstraintName("FK_STAFF");
+        });
+
         modelBuilder.Entity<Position>(entity =>
         {
             entity.HasKey(e => e.PsId).HasName("POSITION_PK");
@@ -320,6 +378,46 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("PS_ID");
+        });
+
+        modelBuilder.Entity<Salary>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("SALARY");
+
+            entity.Property(e => e.BasicSalary)
+                .HasColumnType("NUMBER")
+                .HasColumnName("BASIC_SALARY");
+            entity.Property(e => e.DepartmentName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("DEPARTMENT_NAME");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(152)
+                .IsUnicode(false)
+                .HasColumnName("FULL_NAME");
+            entity.Property(e => e.Month)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("MONTH");
+            entity.Property(e => e.PositionName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("POSITION_NAME");
+            entity.Property(e => e.TotalSalary)
+                .HasColumnType("NUMBER")
+                .HasColumnName("SALARY");
+            entity.Property(e => e.StaffId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("STAFF_ID");
+            entity.Property(e => e.TotalBenefit)
+                .HasColumnType("NUMBER")
+                .HasColumnName("TOTAL_BENEFIT");
+            entity.Property(e => e.TotalWorkHours)
+                .HasColumnType("NUMBER")
+                .HasColumnName("TOTAL_WORK_HOURS");
         });
 
         modelBuilder.Entity<Shift>(entity =>
@@ -847,6 +945,7 @@ public partial class ModelContext : DbContext
         modelBuilder.HasSequence("AUTO_ID_BENEFIT");
         modelBuilder.HasSequence("AUTO_ID_CONTRACT_TYPE");
         modelBuilder.HasSequence("AUTO_ID_DEPARTMENT");
+        modelBuilder.HasSequence("AUTO_ID_MONTH_SALARY");
         modelBuilder.HasSequence("AUTO_ID_POSITION");
         modelBuilder.HasSequence("AUTO_ID_SHIFT");
         modelBuilder.HasSequence("AUTO_ID_SHIFT_TYPE");

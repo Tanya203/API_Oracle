@@ -14,13 +14,6 @@ namespace API.Controllers
             _procedureServices = procedureServices;
         }
 
-        [HttpGet("/Salary")]
-        public async Task<IActionResult> MonthlySalaryStatistics(string month)
-        {
-            var result = await _procedureServices.MonthlySalaryStatistics(month);
-            return Ok(result);
-        }
-
         [HttpPost("/AutoSchedule")]
         public async Task<IActionResult> AutoSchedule(string month)
         {
@@ -32,6 +25,13 @@ namespace API.Controllers
         public async Task<IActionResult> AutoScheduleDate(DateTime date)
         {
             var result = await _procedureServices.AutoScheduleDate(date);
+            return Ok(result);
+        }
+
+        [HttpPut("/AutoUpdateMonthSalaryDetail")]
+        public async Task<IActionResult> AutoUpdateMonthSalaryDetail(string month)
+        {
+            var result = await _procedureServices.AutoUpdateMonthSalaryDetail(month);
             return Ok(result);
         }
 
