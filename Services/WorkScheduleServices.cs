@@ -35,6 +35,24 @@ namespace API.Services
             }).Where(s => s.WsId.ToLower().Contains(search) ||
                     s.WorkDate.ToString().Contains(search)).Cast<object>().ToList();
         }
+        public async Task<List<object>> GetMonthSalary(string month)
+        {
+            var workSchedule = await _modelContext.Salaries.ToListAsync();
+
+            workSchedule = workSchedule.Where(s => s.Month == month).ToList();
+
+            return workSchedule.Select(s => new
+            {
+                s.StaffId,
+                s.FullName,
+                s.DepartmentName,
+                s.PositionName,
+                s.BasicSalary,
+                s.TotalWorkHours,
+                s.TotalBenefit,
+                s.TotalSalary
+            }).Cast<object>().ToList();
+        }
         public async Task<string> CreateWorkSchedule(WorkSchedule workSchedule)
         {
             try

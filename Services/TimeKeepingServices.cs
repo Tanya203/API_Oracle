@@ -60,7 +60,7 @@ namespace API.Services
                 s.ShiftName,
                 s.CheckIn,
                 s.CheckOut,
-            }).Where(s => s.WorkDate.Date == date.Date).Cast<object>().ToList();
+            }).Where(s => s.WorkDate.Value.Date == date.Date).Cast<object>().ToList();
         }
         public async Task<List<object>> SearchStaffTimeKeepinById(string wsID,string search)
         {
