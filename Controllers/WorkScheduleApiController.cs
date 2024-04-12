@@ -29,13 +29,6 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/GetMonthSalary")]
-        public async Task<IActionResult> GetMonthSalary(string month)
-        {
-            var result = await _workScheduleServices.GetMonthSalary(month);
-            return Ok(result);
-        }
-
         [HttpPost("/AddWorkSchedule")]
         public async Task<IActionResult> CreateWorkSchedule(WorkSchedule workSchedule)
         {

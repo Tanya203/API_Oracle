@@ -17,6 +17,7 @@
             services.AddScoped<WorkScheduleDetailServices>();
             services.AddScoped<ProcedureServices>();
             services.AddScoped<TimeKeepingServices>();
+            services.AddScoped<MonthSalaryDetailServices>();
             return services;
         }
     }

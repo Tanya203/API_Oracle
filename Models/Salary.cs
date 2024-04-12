@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace API.Models;
+﻿namespace API.Models;
 
 public partial class Salary
 {
+    public string MsId { get; set; } = null!;
+
     public string StaffId { get; set; } = null!;
 
     public string? FullName { get; set; }

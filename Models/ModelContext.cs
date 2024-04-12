@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace API.Models;
 
@@ -298,7 +296,7 @@ public partial class ModelContext : DbContext
 
         modelBuilder.Entity<MonthSalaryDetail>(entity =>
         {
-            entity.HasKey(e => new { e.MsId, e.StaffId }).HasName("TABLE1_PK");
+            entity.HasKey(e => new { e.MsId, e.StaffId }).HasName("MONTH_SALARY_DETAIL_PK");
 
             entity.ToTable("MONTH_SALARY_DETAIL");
 
@@ -401,6 +399,10 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("MONTH");
+            entity.Property(e => e.MsId)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("MS_ID");
             entity.Property(e => e.PositionName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
