@@ -10,6 +10,20 @@ namespace API.Services
         {
             _modelContext = modelContext;
         }
+        public async Task<List<object>> GetAllMonthSalary()
+        {
+            var workSchedule = await _modelContext.MonthSalaryDetails.ToListAsync();
+
+
+            return workSchedule.Select(s => new
+            {
+                s.MsId,
+                s.StaffId,
+                s.BasicSalary,
+                s.TotalWorkHours,
+                s.TotalBenefit
+            }).Cast<object>().ToList();
+        }
         public async Task<List<object>> GetMonthSalary(string month)
         {
             var workSchedule = await _modelContext.Salaries.ToListAsync();
