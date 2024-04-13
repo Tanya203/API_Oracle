@@ -14,5 +14,5 @@ public partial class Shift
 
     public virtual ShiftType? St { get; set; }
 
-    public virtual ICollection<TimeKeeping> TimeKeepings { get; set; } = new List<TimeKeeping>();
+    public virtual ICollection<TimeKeeping>? TimeKeepings { get; set; } = new List<TimeKeeping>();
 }

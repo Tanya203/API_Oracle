@@ -8,5 +8,5 @@ public partial class Benefit
 
     public decimal? Amount { get; set; }
 
-    public virtual ICollection<BenefitDetail> BenefitDetails { get; set; } = new List<BenefitDetail>();
+    public virtual ICollection<BenefitDetail>? BenefitDetails { get; set; } = new List<BenefitDetail>();
 }

@@ -6,5 +6,5 @@ public partial class WorkSchedule
 
     public DateTime? WorkDate { get; set; }
 
-    public virtual ICollection<WorkScheduleDetail> WorkScheduleDetails { get; set; } = new List<WorkScheduleDetail>();
+    public virtual ICollection<WorkScheduleDetail>? WorkScheduleDetails { get; set; } = new List<WorkScheduleDetail>();
 }

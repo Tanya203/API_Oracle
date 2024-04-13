@@ -6,5 +6,5 @@ public partial class TimeKeepingMethod
 
     public string? TimeKeepingMethodName { get; set; }
 
-    public virtual ICollection<ContractType> ContractTypes { get; set; } = new List<ContractType>();
+    public virtual ICollection<ContractType>? ContractTypes { get; set; } = new List<ContractType>();
 }

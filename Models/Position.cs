@@ -10,5 +10,5 @@ public partial class Position
 
     public virtual Department? Dp { get; set; }
 
-    public virtual ICollection<Staff> Staff { get; set; } = new List<Staff>();
+    public virtual ICollection<Staff>? Staff { get; set; } = new List<Staff>();
 }

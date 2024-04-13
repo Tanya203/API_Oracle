@@ -44,11 +44,16 @@ namespace API.Services
                 s.Month
             }).Cast<object>().ToList();
         }
-        public async Task<string> CreateMonthSalaryDetailServices(MonthSalaryDetail monthSalaryDetail)
+        public async Task<string> CreateMonthSalaryDetailServices(string msID, string staffID)
         {
             try
             {
-                _modelContext.MonthSalaryDetails.Add(monthSalaryDetail);
+                MonthSalaryDetail add = new MonthSalaryDetail()
+                {
+                    MsId = msID,
+                    StaffId = staffID,
+                };
+                _modelContext.MonthSalaryDetails.Add(add);
                 await _modelContext.SaveChangesAsync();
                 return "Success";
             }

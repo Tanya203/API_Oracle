@@ -6,5 +6,5 @@ public partial class MonthSalary
 
     public string? Month { get; set; }
 
-    public virtual ICollection<MonthSalaryDetail> MonthSalaryDetails { get; set; } = new List<MonthSalaryDetail>();
+    public virtual ICollection<MonthSalaryDetail>? MonthSalaryDetails { get; set; } = new List<MonthSalaryDetail>();
 }
