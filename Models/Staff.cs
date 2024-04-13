@@ -54,13 +54,13 @@ public partial class Staff
 
     public string? Account { get; set; }
 
-    public virtual ICollection<BenefitDetail> BenefitDetails { get; set; } = new List<BenefitDetail>();
+    public virtual ICollection<BenefitDetail>? BenefitDetails { get; set; } = new List<BenefitDetail>();
 
     public virtual ContractType? Ct { get; set; }
 
-    public virtual ICollection<MonthSalaryDetail> MonthSalaryDetails { get; set; } = new List<MonthSalaryDetail>();
+    public virtual ICollection<MonthSalaryDetail>? MonthSalaryDetails { get; set; } = new List<MonthSalaryDetail>();
 
     public virtual Position? Ps { get; set; }
 
-    public virtual ICollection<WorkScheduleDetail> WorkScheduleDetails { get; set; } = new List<WorkScheduleDetail>();
+    public virtual ICollection<WorkScheduleDetail>? WorkScheduleDetails { get; set; } = new List<WorkScheduleDetail>();
 }

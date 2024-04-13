@@ -26,10 +26,10 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("/CreateMonthSalaryDetailServices")]
-        public async Task<IActionResult> CreateMonthSalaryDetail(MonthSalaryDetail monthSalaryDetail)
+        [HttpPost("/CreateMonthSalaryDetail")]
+        public async Task<IActionResult> CreateMonthSalaryDetail(string msID, string staffID)
         {
-            var result = await _monthSalaryDetailServices.CreateMonthSalaryDetailServices(monthSalaryDetail);
+            var result = await _monthSalaryDetailServices.CreateMonthSalaryDetailServices(msID, staffID);
             return Ok(result);
         }
     }
