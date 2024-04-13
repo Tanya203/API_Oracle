@@ -12,6 +12,13 @@ namespace API.Controllers
             _monthSalaryDetailServices = monthSalaryDetailServices;
         }
 
+        [HttpGet("/GetAllMonthSalary")]
+        public async Task<IActionResult> GetAllMonthSalary()
+        {
+            var result = await _monthSalaryDetailServices.GetAllMonthSalary();
+            return Ok(result);
+        }
+
         [HttpGet("/GetMonthSalary")]
         public async Task<IActionResult> GetMonthSalary(string month)
         {
